@@ -53,9 +53,9 @@ public class StudentAcademicsController {
 	private StudentAcademicsService studentAcademicsService;
 
 	@ApiOperation(value = "Creates a new StudentAcademics instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public StudentAcademics createStudentAcademics(@RequestBody StudentAcademics studentAcademics) {
+public StudentAcademics createStudentAcademics(@RequestBody StudentAcademics studentAcademics) {
 		LOGGER.debug("Create StudentAcademics with information: {}" , studentAcademics);
 
 		studentAcademics = studentAcademicsService.create(studentAcademics);
@@ -64,15 +64,15 @@ public class StudentAcademicsController {
 	    return studentAcademics;
 	}
 
-    @ApiOperation(value = "Returns the StudentAcademics instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the StudentAcademics instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public StudentAcademics getStudentAcademics(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId) throws EntityNotFoundException {
+    public StudentAcademics getStudentAcademics(@RequestParam("studentId") Integer studentId,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId) throws EntityNotFoundException {
 
         StudentAcademicsId studentacademicsId = new StudentAcademicsId();
+        studentacademicsId.setStudentId(studentId);
         studentacademicsId.setAcademicYear(academicYear);
         studentacademicsId.setStandardId(standardId);
-        studentacademicsId.setStudentId(studentId);
 
         LOGGER.debug("Getting StudentAcademics with id: {}" , studentacademicsId);
         StudentAcademics studentAcademics = studentAcademicsService.getById(studentacademicsId);
@@ -86,11 +86,11 @@ public class StudentAcademicsController {
     @ApiOperation(value = "Updates the StudentAcademics instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.PUT)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public StudentAcademics editStudentAcademics(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId, @RequestBody StudentAcademics studentAcademics) throws EntityNotFoundException {
+    public StudentAcademics editStudentAcademics(@RequestParam("studentId") Integer studentId,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId, @RequestBody StudentAcademics studentAcademics) throws EntityNotFoundException {
 
+        studentAcademics.setStudentId(studentId);
         studentAcademics.setAcademicYear(academicYear);
         studentAcademics.setStandardId(standardId);
-        studentAcademics.setStudentId(studentId);
 
         LOGGER.debug("StudentAcademics details with id is updated with: {}" , studentAcademics);
 
@@ -101,12 +101,12 @@ public class StudentAcademicsController {
     @ApiOperation(value = "Deletes the StudentAcademics instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.DELETE)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public boolean deleteStudentAcademics(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId) throws EntityNotFoundException {
+    public boolean deleteStudentAcademics(@RequestParam("studentId") Integer studentId,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId) throws EntityNotFoundException {
 
         StudentAcademicsId studentacademicsId = new StudentAcademicsId();
+        studentacademicsId.setStudentId(studentId);
         studentacademicsId.setAcademicYear(academicYear);
         studentacademicsId.setStandardId(standardId);
-        studentacademicsId.setStudentId(studentId);
 
         LOGGER.debug("Deleting StudentAcademics with id: {}" , studentacademicsId);
         StudentAcademics studentAcademics = studentAcademicsService.delete(studentacademicsId);
@@ -114,6 +114,14 @@ public class StudentAcademicsController {
         return studentAcademics != null;
     }
 
+
+    @RequestMapping(value = "/rollNumber/{rollNumber}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching StudentAcademics with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public StudentAcademics getByRollNumber(@PathVariable("rollNumber") int rollNumber) {
+        LOGGER.debug("Getting StudentAcademics with uniques key RollNumber");
+        return studentAcademicsService.getByRollNumber(rollNumber);
+    }
 
     /**
      * @deprecated Use {@link #findStudentAcademics(String, Pageable)} instead.

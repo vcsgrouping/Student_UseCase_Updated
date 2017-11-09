@@ -45,34 +45,12 @@ public class StudentPortal_DBQueryExecutorServiceImpl_V1 implements StudentPorta
 
     @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
     @Override
-    public Page<Object> executeSV_AcademicSubjectsByStandard(Pageable pageable, Date year, String standard) {
-        Map params = new HashMap(2);
-
-        params.put("year", year);
-        params.put("standard", standard);
-
-        return queryExecutor.executeNamedQuery("SV_AcademicSubjectsByStandard", params, Object.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
-    @Override
     public Page<Object> executeSV_ResultsByTestID(Pageable pageable, String tname) {
         Map params = new HashMap(1);
 
         params.put("T_Name", tname);
 
         return queryExecutor.executeNamedQuery("SV_ResultsByTestID", params, Object.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
-    @Override
-    public Page<Object> executeSV_CountOfStudentsInAcademics(Pageable pageable, String standard, Date year) {
-        Map params = new HashMap(2);
-
-        params.put("standard", standard);
-        params.put("year", year);
-
-        return queryExecutor.executeNamedQuery("SV_CountOfStudentsInAcademics", params, Object.class, pageable);
     }
 
     @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
@@ -92,6 +70,28 @@ public class StudentPortal_DBQueryExecutorServiceImpl_V1 implements StudentPorta
 
 
         return queryExecutor.executeNamedQuery("SV_TestQuery", params, Object.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
+    @Override
+    public Page<Object> executeSV_AcademicSubjectsByStandard(Pageable pageable, Date year, String standard) {
+        Map params = new HashMap(2);
+
+        params.put("year", year);
+        params.put("standard", standard);
+
+        return queryExecutor.executeNamedQuery("SV_AcademicSubjectsByStandard", params, Object.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "StudentPortal_DBTransactionManager")
+    @Override
+    public Page<Object> executeSV_CountOfStudentsInAcademics(Pageable pageable, String standard, Date year) {
+        Map params = new HashMap(2);
+
+        params.put("standard", standard);
+        params.put("year", year);
+
+        return queryExecutor.executeNamedQuery("SV_CountOfStudentsInAcademics", params, Object.class, pageable);
     }
 
 }

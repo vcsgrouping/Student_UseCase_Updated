@@ -7,6 +7,8 @@ package com.student_usecase.studentportal_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface StudentAcademicsService {
      * @param studentAcademics Details of the StudentAcademics to be created; value cannot be null.
      * @return The newly created StudentAcademics.
      */
-	StudentAcademics create(StudentAcademics studentAcademics);
+	StudentAcademics create(@Valid StudentAcademics studentAcademics);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface StudentAcademicsService {
 	 * @return The updated StudentAcademics.
 	 * @throws EntityNotFoundException if no StudentAcademics is found with given input.
 	 */
-	StudentAcademics update(StudentAcademics studentAcademics) throws EntityNotFoundException;
+	StudentAcademics update(@Valid StudentAcademics studentAcademics) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StudentAcademics with the given id.

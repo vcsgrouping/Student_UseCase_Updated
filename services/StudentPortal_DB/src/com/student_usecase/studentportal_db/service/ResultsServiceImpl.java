@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -33,6 +34,7 @@ import com.student_usecase.studentportal_db.ResultsId;
  * @see Results
  */
 @Service("StudentPortal_DB.ResultsService")
+@Validated
 public class ResultsServiceImpl implements ResultsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResultsServiceImpl.class);

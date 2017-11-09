@@ -54,9 +54,9 @@ public class AcademicSubjectsController {
 	private AcademicSubjectsService academicSubjectsService;
 
 	@ApiOperation(value = "Creates a new AcademicSubjects instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public AcademicSubjects createAcademicSubjects(@RequestBody AcademicSubjects academicSubjects) {
+public AcademicSubjects createAcademicSubjects(@RequestBody AcademicSubjects academicSubjects) {
 		LOGGER.debug("Create AcademicSubjects with information: {}" , academicSubjects);
 
 		academicSubjects = academicSubjectsService.create(academicSubjects);
@@ -65,7 +65,7 @@ public class AcademicSubjectsController {
 	    return academicSubjects;
 	}
 
-    @ApiOperation(value = "Returns the AcademicSubjects instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the AcademicSubjects instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     public AcademicSubjects getAcademicSubjects(@RequestParam("academicYear") Date academicYear,@RequestParam("standard") String standard,@RequestParam("subjectName") String subjectName,@RequestParam("subjectTeacher") String subjectTeacher) throws EntityNotFoundException {

@@ -54,9 +54,9 @@ public class ViewResultsController {
 	private ViewResultsService viewResultsService;
 
 	@ApiOperation(value = "Creates a new ViewResults instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public ViewResults createViewResults(@RequestBody ViewResults viewResults) {
+public ViewResults createViewResults(@RequestBody ViewResults viewResults) {
 		LOGGER.debug("Create ViewResults with information: {}" , viewResults);
 
 		viewResults = viewResultsService.create(viewResults);
@@ -65,18 +65,18 @@ public class ViewResultsController {
 	    return viewResults;
 	}
 
-    @ApiOperation(value = "Returns the ViewResults instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the ViewResults instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public ViewResults getViewResults(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId,@RequestParam("totalMarks") BigInteger totalMarks) throws EntityNotFoundException {
+    public ViewResults getViewResults(@RequestParam("totalMarks") BigInteger totalMarks,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId) throws EntityNotFoundException {
 
         ViewResultsId viewresultsId = new ViewResultsId();
+        viewresultsId.setTotalMarks(totalMarks);
         viewresultsId.setAcademicYear(academicYear);
         viewresultsId.setStandardId(standardId);
         viewresultsId.setStudentId(studentId);
         viewresultsId.setStudentName(studentName);
         viewresultsId.setTestId(testId);
-        viewresultsId.setTotalMarks(totalMarks);
 
         LOGGER.debug("Getting ViewResults with id: {}" , viewresultsId);
         ViewResults viewResults = viewResultsService.getById(viewresultsId);
@@ -90,14 +90,14 @@ public class ViewResultsController {
     @ApiOperation(value = "Updates the ViewResults instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.PUT)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public ViewResults editViewResults(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId,@RequestParam("totalMarks") BigInteger totalMarks, @RequestBody ViewResults viewResults) throws EntityNotFoundException {
+    public ViewResults editViewResults(@RequestParam("totalMarks") BigInteger totalMarks,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId, @RequestBody ViewResults viewResults) throws EntityNotFoundException {
 
+        viewResults.setTotalMarks(totalMarks);
         viewResults.setAcademicYear(academicYear);
         viewResults.setStandardId(standardId);
         viewResults.setStudentId(studentId);
         viewResults.setStudentName(studentName);
         viewResults.setTestId(testId);
-        viewResults.setTotalMarks(totalMarks);
 
         LOGGER.debug("ViewResults details with id is updated with: {}" , viewResults);
 
@@ -108,15 +108,15 @@ public class ViewResultsController {
     @ApiOperation(value = "Deletes the ViewResults instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.DELETE)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public boolean deleteViewResults(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId,@RequestParam("totalMarks") BigInteger totalMarks) throws EntityNotFoundException {
+    public boolean deleteViewResults(@RequestParam("totalMarks") BigInteger totalMarks,@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("studentId") Integer studentId,@RequestParam("studentName") String studentName,@RequestParam("testId") Integer testId) throws EntityNotFoundException {
 
         ViewResultsId viewresultsId = new ViewResultsId();
+        viewresultsId.setTotalMarks(totalMarks);
         viewresultsId.setAcademicYear(academicYear);
         viewresultsId.setStandardId(standardId);
         viewresultsId.setStudentId(studentId);
         viewresultsId.setStudentName(studentName);
         viewresultsId.setTestId(testId);
-        viewresultsId.setTotalMarks(totalMarks);
 
         LOGGER.debug("Deleting ViewResults with id: {}" , viewresultsId);
         ViewResults viewResults = viewResultsService.delete(viewresultsId);

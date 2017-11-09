@@ -17,14 +17,6 @@ import com.student_usecase.school_db.models.query.*;
 
 public interface School_DBQueryExecutorService {
 
-    Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(String academicYear, Integer standardid, Integer testid, Pageable pageable);
-
-    Downloadable exportSV_GetSTudentResultsForStandard(ExportType exportType, String academicYear, Integer standardid, Integer testid, Pageable pageable);
-
-    Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(Integer standard, String year, Pageable pageable);
-
-    Downloadable exportSV_CountOfStudents(ExportType exportType, Integer standard, String year, Pageable pageable);
-
     Page<SvTop3studentsFromAllStandardsResponse> executeSV_Top3StudentsFromAllStandards(Integer testid, String academicyear, Pageable pageable);
 
     Downloadable exportSV_Top3StudentsFromAllStandards(ExportType exportType, Integer testid, String academicyear, Pageable pageable);
@@ -36,6 +28,14 @@ public interface School_DBQueryExecutorService {
     Page<SvCountOfStudentPerGradeResponse> executeSV_CountOfStudentPerGrade(String academicYear, Integer standardid, Pageable pageable);
 
     Downloadable exportSV_CountOfStudentPerGrade(ExportType exportType, String academicYear, Integer standardid, Pageable pageable);
+
+    Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(Integer standard, String year, Pageable pageable);
+
+    Downloadable exportSV_CountOfStudents(ExportType exportType, Integer standard, String year, Pageable pageable);
+
+    Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(String academicYear, Integer standardid, Integer testid, Pageable pageable);
+
+    Downloadable exportSV_GetSTudentResultsForStandard(ExportType exportType, String academicYear, Integer standardid, Integer testid, Pageable pageable);
 
 }
 

@@ -53,9 +53,9 @@ public class GradeDetailsController {
 	private GradeDetailsService gradeDetailsService;
 
 	@ApiOperation(value = "Creates a new GradeDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public GradeDetails createGradeDetails(@RequestBody GradeDetails gradeDetails) {
+public GradeDetails createGradeDetails(@RequestBody GradeDetails gradeDetails) {
 		LOGGER.debug("Create GradeDetails with information: {}" , gradeDetails);
 
 		gradeDetails = gradeDetailsService.create(gradeDetails);
@@ -63,7 +63,6 @@ public class GradeDetailsController {
 
 	    return gradeDetails;
 	}
-
 
     @ApiOperation(value = "Returns the GradeDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +98,14 @@ public class GradeDetailsController {
         GradeDetails deletedGradeDetails = gradeDetailsService.delete(id);
 
         return deletedGradeDetails != null;
+    }
+
+    @RequestMapping(value = "/grade/{grade}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching GradeDetails with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public GradeDetails getByGrade(@PathVariable("grade") String grade) {
+        LOGGER.debug("Getting GradeDetails with uniques key Grade");
+        return gradeDetailsService.getByGrade(grade);
     }
 
     /**

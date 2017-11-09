@@ -53,9 +53,9 @@ public class AcademicYearController {
 	private AcademicYearService academicYearService;
 
 	@ApiOperation(value = "Creates a new AcademicYear instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public AcademicYear createAcademicYear(@RequestBody AcademicYear academicYearInstance) {
+public AcademicYear createAcademicYear(@RequestBody AcademicYear academicYearInstance) {
 		LOGGER.debug("Create AcademicYear with information: {}" , academicYearInstance);
 
 		academicYearInstance = academicYearService.create(academicYearInstance);
@@ -63,7 +63,6 @@ public class AcademicYearController {
 
 	    return academicYearInstance;
 	}
-
 
     @ApiOperation(value = "Returns the AcademicYear instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +98,14 @@ public class AcademicYearController {
         AcademicYear deletedAcademicYear = academicYearService.delete(id);
 
         return deletedAcademicYear != null;
+    }
+
+    @RequestMapping(value = "/startYear/{startYear}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching AcademicYear with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public AcademicYear getByStartYear(@PathVariable("startYear") int startYear) {
+        LOGGER.debug("Getting AcademicYear with uniques key StartYear");
+        return academicYearService.getByStartYear(startYear);
     }
 
     /**

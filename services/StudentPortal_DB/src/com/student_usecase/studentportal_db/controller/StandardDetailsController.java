@@ -53,9 +53,9 @@ public class StandardDetailsController {
 	private StandardDetailsService standardDetailsService;
 
 	@ApiOperation(value = "Creates a new StandardDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public StandardDetails createStandardDetails(@RequestBody StandardDetails standardDetails) {
+public StandardDetails createStandardDetails(@RequestBody StandardDetails standardDetails) {
 		LOGGER.debug("Create StandardDetails with information: {}" , standardDetails);
 
 		standardDetails = standardDetailsService.create(standardDetails);
@@ -64,7 +64,7 @@ public class StandardDetailsController {
 	    return standardDetails;
 	}
 
-    @ApiOperation(value = "Returns the StandardDetails instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the StandardDetails instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     public StandardDetails getStandardDetails(@RequestParam("standardId") String standardId,@RequestParam("standardName") String standardName) throws EntityNotFoundException {

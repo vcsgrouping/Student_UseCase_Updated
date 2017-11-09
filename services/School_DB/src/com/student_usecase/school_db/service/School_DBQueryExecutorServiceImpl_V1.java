@@ -35,29 +35,6 @@ public class School_DBQueryExecutorServiceImpl_V1 implements School_DBQueryExecu
 
     @Transactional(readOnly = true, value = "School_DBTransactionManager")
     @Override
-    public Page<Object> executeSV_GetSTudentResultsForStandard(Pageable pageable, String academicYear, Integer standardid, Integer testid) {
-        Map params = new HashMap(3);
-
-        params.put("academicYear", academicYear);
-        params.put("standardid", standardid);
-        params.put("testid", testid);
-
-        return queryExecutor.executeNamedQuery("SV_GetSTudentResultsForStandard", params, Object.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
-    public Page<Object> executeSV_CountOfStudents(Pageable pageable, Integer standard, String year) {
-        Map params = new HashMap(2);
-
-        params.put("standard", standard);
-        params.put("year", year);
-
-        return queryExecutor.executeNamedQuery("SV_CountOfStudents", params, Object.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
     public Page<Object> executeSV_Top3StudentsFromAllStandards(Pageable pageable, Integer testid, String academicyear) {
         Map params = new HashMap(2);
 
@@ -87,6 +64,29 @@ public class School_DBQueryExecutorServiceImpl_V1 implements School_DBQueryExecu
         params.put("standardid", standardid);
 
         return queryExecutor.executeNamedQuery("SV_CountOfStudentPerGrade", params, Object.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Page<Object> executeSV_CountOfStudents(Pageable pageable, Integer standard, String year) {
+        Map params = new HashMap(2);
+
+        params.put("standard", standard);
+        params.put("year", year);
+
+        return queryExecutor.executeNamedQuery("SV_CountOfStudents", params, Object.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Page<Object> executeSV_GetSTudentResultsForStandard(Pageable pageable, String academicYear, Integer standardid, Integer testid) {
+        Map params = new HashMap(3);
+
+        params.put("academicYear", academicYear);
+        params.put("standardid", standardid);
+        params.put("testid", testid);
+
+        return queryExecutor.executeNamedQuery("SV_GetSTudentResultsForStandard", params, Object.class, pageable);
     }
 
 }

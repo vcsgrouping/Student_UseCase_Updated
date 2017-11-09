@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -35,17 +37,20 @@ import com.student_usecase.school_db.StudentAcademics;
  * @see Academics
  */
 @Service("School_DB.AcademicsService")
+@Validated
 public class AcademicsServiceImpl implements AcademicsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AcademicsServiceImpl.class);
 
-    @Autowired
-	@Qualifier("School_DB.StudentAcademicsService")
-	private StudentAcademicsService studentAcademicsService;
-
+    @Lazy
     @Autowired
 	@Qualifier("School_DB.AcademicSubjectsService")
 	private AcademicSubjectsService academicSubjectsService;
+
+    @Lazy
+    @Autowired
+	@Qualifier("School_DB.StudentAcademicsService")
+	private StudentAcademicsService studentAcademicsService;
 
     @Autowired
     @Qualifier("School_DB.AcademicsDao")
@@ -186,19 +191,19 @@ public class AcademicsServiceImpl implements AcademicsService {
     /**
 	 * This setter method should only be used by unit tests
 	 *
-	 * @param service StudentAcademicsService instance
+	 * @param service AcademicSubjectsService instance
 	 */
-	protected void setStudentAcademicsService(StudentAcademicsService service) {
-        this.studentAcademicsService = service;
+	protected void setAcademicSubjectsService(AcademicSubjectsService service) {
+        this.academicSubjectsService = service;
     }
 
     /**
 	 * This setter method should only be used by unit tests
 	 *
-	 * @param service AcademicSubjectsService instance
+	 * @param service StudentAcademicsService instance
 	 */
-	protected void setAcademicSubjectsService(AcademicSubjectsService service) {
-        this.academicSubjectsService = service;
+	protected void setStudentAcademicsService(StudentAcademicsService service) {
+        this.studentAcademicsService = service;
     }
 
 }

@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -60,26 +62,17 @@ public class EmployeeDetailsController {
 	private EmployeeDetailsService employeeDetailsService;
 
 	@ApiOperation(value = "Creates a new EmployeeDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public EmployeeDetails createEmployeeDetails(@RequestBody EmployeeDetails employeeDetails) {
+public EmployeeDetails createEmployeeDetails(@RequestPart("wm_data_json") EmployeeDetails employeeDetails, @RequestPart(value = "picUrl", required = false) MultipartFile _picUrl) {
 		LOGGER.debug("Create EmployeeDetails with information: {}" , employeeDetails);
 
+    employeeDetails.setPicUrl(WMMultipartUtils.toByteArray(_picUrl));
 		employeeDetails = employeeDetailsService.create(employeeDetails);
 		LOGGER.debug("Created EmployeeDetails with information: {}" , employeeDetails);
 
 	    return employeeDetails;
 	}
-
-	@ApiOperation(value = "Creates a new EmployeeDetails instance.This API should be used when the EmployeeDetails instance has fields that requires multipart data.")
-	@RequestMapping(method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public EmployeeDetails createEmployeeDetails(MultipartHttpServletRequest multipartHttpServletRequest) {
-    	EmployeeDetails employeeDetails = WMMultipartUtils.toObject(multipartHttpServletRequest, EmployeeDetails.class, "School_DB"); 
-        LOGGER.debug("Creating a new EmployeeDetails with information: {}" , employeeDetails);
-        return employeeDetailsService.create(employeeDetails);
-    }
-
 
     @ApiOperation(value = "Returns the EmployeeDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)

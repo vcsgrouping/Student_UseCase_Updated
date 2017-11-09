@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -34,10 +36,12 @@ import com.student_usecase.school_db.TestConducted;
  * @see AcademicTestSubjects
  */
 @Service("School_DB.AcademicTestSubjectsService")
+@Validated
 public class AcademicTestSubjectsServiceImpl implements AcademicTestSubjectsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AcademicTestSubjectsServiceImpl.class);
 
+    @Lazy
     @Autowired
 	@Qualifier("School_DB.TestConductedService")
 	private TestConductedService testConductedService;
@@ -94,8 +98,8 @@ public class AcademicTestSubjectsServiceImpl implements AcademicTestSubjectsServ
         AcademicTestSubjectsId academictestsubjectsId = new AcademicTestSubjectsId();
         academictestsubjectsId.setAcademicYear(academicTestSubjects.getAcademicYear());
         academictestsubjectsId.setStandardId(academicTestSubjects.getStandardId());
-        academictestsubjectsId.setSubjectId(academicTestSubjects.getSubjectId());
         academictestsubjectsId.setTestId(academicTestSubjects.getTestId());
+        academictestsubjectsId.setSubjectId(academicTestSubjects.getSubjectId());
 
         return this.wmGenericDao.findById(academictestsubjectsId);
     }
@@ -148,7 +152,7 @@ public class AcademicTestSubjectsServiceImpl implements AcademicTestSubjectsServ
 
     @Transactional(readOnly = true, value = "School_DBTransactionManager")
     @Override
-    public Page<TestConducted> findAssociatedTestConducteds(String academicYear, Integer standardId, Integer subjectId, Integer testId, Pageable pageable) {
+    public Page<TestConducted> findAssociatedTestConducteds(String academicYear, Integer standardId, Integer testId, Integer subjectId, Pageable pageable) {
         LOGGER.debug("Fetching all associated testConducteds");
 
         StringBuilder queryBuilder = new StringBuilder();
@@ -156,9 +160,9 @@ public class AcademicTestSubjectsServiceImpl implements AcademicTestSubjectsServ
         queryBuilder.append(" and ");
         queryBuilder.append("academicTestSubjects.standardId = '" + standardId + "'");
         queryBuilder.append(" and ");
-        queryBuilder.append("academicTestSubjects.subjectId = '" + subjectId + "'");
-        queryBuilder.append(" and ");
         queryBuilder.append("academicTestSubjects.testId = '" + testId + "'");
+        queryBuilder.append(" and ");
+        queryBuilder.append("academicTestSubjects.subjectId = '" + subjectId + "'");
 
         return testConductedService.findAll(queryBuilder.toString(), pageable);
     }

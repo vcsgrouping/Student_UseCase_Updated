@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface AcademicYearService {
      * @param academicYearInstance Details of the AcademicYear to be created; value cannot be null.
      * @return The newly created AcademicYear.
      */
-	AcademicYear create(AcademicYear academicYearInstance);
+	AcademicYear create(@Valid AcademicYear academicYearInstance);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface AcademicYearService {
 	 */
 	AcademicYear findById(String academicyearId);
 
+    /**
+	 * Find and return the AcademicYear for given startYear  if exists.
+	 *
+	 * @param startYear value of startYear; value cannot be null.
+	 * @return AcademicYear associated with the given inputs.
+     * @throws EntityNotFoundException if no matching AcademicYear found.
+	 */
+    AcademicYear getByStartYear(int startYear)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing AcademicYear. It replaces all fields of the existing AcademicYear with the given academicYearInstance.
@@ -62,7 +72,7 @@ public interface AcademicYearService {
 	 * @return The updated AcademicYear.
 	 * @throws EntityNotFoundException if no AcademicYear is found with given input.
 	 */
-	AcademicYear update(AcademicYear academicYearInstance) throws EntityNotFoundException;
+	AcademicYear update(@Valid AcademicYear academicYearInstance) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing AcademicYear with the given id.

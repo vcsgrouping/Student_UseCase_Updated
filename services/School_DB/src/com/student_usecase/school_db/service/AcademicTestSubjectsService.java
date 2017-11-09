@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,7 +35,7 @@ public interface AcademicTestSubjectsService {
      * @param academicTestSubjects Details of the AcademicTestSubjects to be created; value cannot be null.
      * @return The newly created AcademicTestSubjects.
      */
-	AcademicTestSubjects create(AcademicTestSubjects academicTestSubjects);
+	AcademicTestSubjects create(@Valid AcademicTestSubjects academicTestSubjects);
 
 
 	/**
@@ -63,7 +65,7 @@ public interface AcademicTestSubjectsService {
 	 * @return The updated AcademicTestSubjects.
 	 * @throws EntityNotFoundException if no AcademicTestSubjects is found with given input.
 	 */
-	AcademicTestSubjects update(AcademicTestSubjects academicTestSubjects) throws EntityNotFoundException;
+	AcademicTestSubjects update(@Valid AcademicTestSubjects academicTestSubjects) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing AcademicTestSubjects with the given id.
@@ -147,15 +149,15 @@ public interface AcademicTestSubjectsService {
      *
      * @param academicYear value of academicYear; value cannot be null
      * @param standardId value of standardId; value cannot be null
-     * @param subjectId value of subjectId; value cannot be null
      * @param testId value of testId; value cannot be null
+     * @param subjectId value of subjectId; value cannot be null
      * @param pageable Details of the pagination information along with the sorting options. If null returns all matching records.
      * @return Paginated list of associated TestConducted instances.
      *
      * @see Pageable
      * @see Page
      */
-    Page<TestConducted> findAssociatedTestConducteds(String academicYear, Integer standardId, Integer subjectId, Integer testId, Pageable pageable);
+    Page<TestConducted> findAssociatedTestConducteds(String academicYear, Integer standardId, Integer testId, Integer subjectId, Pageable pageable);
 
 }
 

@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -62,26 +64,17 @@ public class StudentDetailsController {
 	private StudentDetailsService studentDetailsService;
 
 	@ApiOperation(value = "Creates a new StudentDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public StudentDetails createStudentDetails(@RequestBody StudentDetails studentDetails) {
+public StudentDetails createStudentDetails(@RequestPart("wm_data_json") StudentDetails studentDetails, @RequestPart(value = "profilePic", required = false) MultipartFile _profilePic) {
 		LOGGER.debug("Create StudentDetails with information: {}" , studentDetails);
 
+    studentDetails.setProfilePic(WMMultipartUtils.toByteArray(_profilePic));
 		studentDetails = studentDetailsService.create(studentDetails);
 		LOGGER.debug("Created StudentDetails with information: {}" , studentDetails);
 
 	    return studentDetails;
 	}
-
-	@ApiOperation(value = "Creates a new StudentDetails instance.This API should be used when the StudentDetails instance has fields that requires multipart data.")
-	@RequestMapping(method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public StudentDetails createStudentDetails(MultipartHttpServletRequest multipartHttpServletRequest) {
-    	StudentDetails studentDetails = WMMultipartUtils.toObject(multipartHttpServletRequest, StudentDetails.class, "School_DB"); 
-        LOGGER.debug("Creating a new StudentDetails with information: {}" , studentDetails);
-        return studentDetailsService.create(studentDetails);
-    }
-
 
     @ApiOperation(value = "Returns the StudentDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -146,6 +139,14 @@ public class StudentDetailsController {
         StudentDetails deletedStudentDetails = studentDetailsService.delete(id);
 
         return deletedStudentDetails != null;
+    }
+
+    @RequestMapping(value = "/studentIdentificationId/{studentIdentificationId}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching StudentDetails with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public StudentDetails getByStudentIdentificationId(@PathVariable("studentIdentificationId") Integer studentIdentificationId) {
+        LOGGER.debug("Getting StudentDetails with uniques key StudentIdentificationId");
+        return studentDetailsService.getByStudentIdentificationId(studentIdentificationId);
     }
 
     /**

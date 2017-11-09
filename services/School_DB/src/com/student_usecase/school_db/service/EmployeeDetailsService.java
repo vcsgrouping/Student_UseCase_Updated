@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -31,7 +33,7 @@ public interface EmployeeDetailsService {
      * @param employeeDetails Details of the EmployeeDetails to be created; value cannot be null.
      * @return The newly created EmployeeDetails.
      */
-	EmployeeDetails create(EmployeeDetails employeeDetails);
+	EmployeeDetails create(@Valid EmployeeDetails employeeDetails);
 
 
 	/**
@@ -61,7 +63,7 @@ public interface EmployeeDetailsService {
 	 * @return The updated EmployeeDetails.
 	 * @throws EntityNotFoundException if no EmployeeDetails is found with given input.
 	 */
-	EmployeeDetails update(EmployeeDetails employeeDetails) throws EntityNotFoundException;
+	EmployeeDetails update(@Valid EmployeeDetails employeeDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing EmployeeDetails with the given id.

@@ -54,9 +54,9 @@ public class AcademicTestSubjectsController {
 	private AcademicTestSubjectsService academicTestSubjectsService;
 
 	@ApiOperation(value = "Creates a new AcademicTestSubjects instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public AcademicTestSubjects createAcademicTestSubjects(@RequestBody AcademicTestSubjects academicTestSubjects) {
+public AcademicTestSubjects createAcademicTestSubjects(@RequestBody AcademicTestSubjects academicTestSubjects) {
 		LOGGER.debug("Create AcademicTestSubjects with information: {}" , academicTestSubjects);
 
 		academicTestSubjects = academicTestSubjectsService.create(academicTestSubjects);
@@ -65,16 +65,16 @@ public class AcademicTestSubjectsController {
 	    return academicTestSubjects;
 	}
 
-    @ApiOperation(value = "Returns the AcademicTestSubjects instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the AcademicTestSubjects instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public AcademicTestSubjects getAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("subjectId") Integer subjectId,@RequestParam("testId") Integer testId) throws EntityNotFoundException {
+    public AcademicTestSubjects getAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("testId") Integer testId,@RequestParam("subjectId") Integer subjectId) throws EntityNotFoundException {
 
         AcademicTestSubjectsId academictestsubjectsId = new AcademicTestSubjectsId();
         academictestsubjectsId.setAcademicYear(academicYear);
         academictestsubjectsId.setStandardId(standardId);
-        academictestsubjectsId.setSubjectId(subjectId);
         academictestsubjectsId.setTestId(testId);
+        academictestsubjectsId.setSubjectId(subjectId);
 
         LOGGER.debug("Getting AcademicTestSubjects with id: {}" , academictestsubjectsId);
         AcademicTestSubjects academicTestSubjects = academicTestSubjectsService.getById(academictestsubjectsId);
@@ -88,12 +88,12 @@ public class AcademicTestSubjectsController {
     @ApiOperation(value = "Updates the AcademicTestSubjects instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.PUT)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public AcademicTestSubjects editAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("subjectId") Integer subjectId,@RequestParam("testId") Integer testId, @RequestBody AcademicTestSubjects academicTestSubjects) throws EntityNotFoundException {
+    public AcademicTestSubjects editAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("testId") Integer testId,@RequestParam("subjectId") Integer subjectId, @RequestBody AcademicTestSubjects academicTestSubjects) throws EntityNotFoundException {
 
         academicTestSubjects.setAcademicYear(academicYear);
         academicTestSubjects.setStandardId(standardId);
-        academicTestSubjects.setSubjectId(subjectId);
         academicTestSubjects.setTestId(testId);
+        academicTestSubjects.setSubjectId(subjectId);
 
         LOGGER.debug("AcademicTestSubjects details with id is updated with: {}" , academicTestSubjects);
 
@@ -104,13 +104,13 @@ public class AcademicTestSubjectsController {
     @ApiOperation(value = "Deletes the AcademicTestSubjects instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.DELETE)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public boolean deleteAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("subjectId") Integer subjectId,@RequestParam("testId") Integer testId) throws EntityNotFoundException {
+    public boolean deleteAcademicTestSubjects(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("testId") Integer testId,@RequestParam("subjectId") Integer subjectId) throws EntityNotFoundException {
 
         AcademicTestSubjectsId academictestsubjectsId = new AcademicTestSubjectsId();
         academictestsubjectsId.setAcademicYear(academicYear);
         academictestsubjectsId.setStandardId(standardId);
-        academictestsubjectsId.setSubjectId(subjectId);
         academictestsubjectsId.setTestId(testId);
+        academictestsubjectsId.setSubjectId(subjectId);
 
         LOGGER.debug("Deleting AcademicTestSubjects with id: {}" , academictestsubjectsId);
         AcademicTestSubjects academicTestSubjects = academicTestSubjectsService.delete(academictestsubjectsId);
@@ -173,10 +173,10 @@ public class AcademicTestSubjectsController {
     @RequestMapping(value="/composite-id/testConducteds", method=RequestMethod.GET)
     @ApiOperation(value = "Gets the testConducteds instance associated with the given composite-id.")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Page<TestConducted> findAssociatedTestConducteds(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("subjectId") Integer subjectId,@RequestParam("testId") Integer testId, Pageable pageable) {
+    public Page<TestConducted> findAssociatedTestConducteds(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("testId") Integer testId,@RequestParam("subjectId") Integer subjectId, Pageable pageable) {
 
         LOGGER.debug("Fetching all associated testConducteds");
-        return academicTestSubjectsService.findAssociatedTestConducteds(academicYear, standardId, subjectId, testId, pageable);
+        return academicTestSubjectsService.findAssociatedTestConducteds(academicYear, standardId, testId, subjectId, pageable);
     }
 
     /**

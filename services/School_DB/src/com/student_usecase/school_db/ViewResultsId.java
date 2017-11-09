@@ -11,12 +11,20 @@ import java.util.Objects;
 
 public class ViewResultsId implements Serializable {
 
+    private BigInteger totalMarks;
     private String academicYear;
     private Integer standardId;
     private Integer studentId;
     private String studentName;
     private Integer testId;
-    private BigInteger totalMarks;
+
+    public BigInteger getTotalMarks() {
+        return this.totalMarks;
+    }
+
+    public void setTotalMarks(BigInteger totalMarks) {
+        this.totalMarks = totalMarks;
+    }
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -58,34 +66,26 @@ public class ViewResultsId implements Serializable {
         this.testId = testId;
     }
 
-    public BigInteger getTotalMarks() {
-        return this.totalMarks;
-    }
-
-    public void setTotalMarks(BigInteger totalMarks) {
-        this.totalMarks = totalMarks;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ViewResults)) return false;
         final ViewResults viewResults = (ViewResults) o;
-        return Objects.equals(getAcademicYear(), viewResults.getAcademicYear()) &&
+        return Objects.equals(getTotalMarks(), viewResults.getTotalMarks()) &&
+                Objects.equals(getAcademicYear(), viewResults.getAcademicYear()) &&
                 Objects.equals(getStandardId(), viewResults.getStandardId()) &&
                 Objects.equals(getStudentId(), viewResults.getStudentId()) &&
                 Objects.equals(getStudentName(), viewResults.getStudentName()) &&
-                Objects.equals(getTestId(), viewResults.getTestId()) &&
-                Objects.equals(getTotalMarks(), viewResults.getTotalMarks());
+                Objects.equals(getTestId(), viewResults.getTestId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
+        return Objects.hash(getTotalMarks(),
+                getAcademicYear(),
                 getStandardId(),
                 getStudentId(),
                 getStudentName(),
-                getTestId(),
-                getTotalMarks());
+                getTestId());
     }
 }

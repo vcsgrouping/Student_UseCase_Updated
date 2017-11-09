@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface TestDetailsService {
      * @param testDetails Details of the TestDetails to be created; value cannot be null.
      * @return The newly created TestDetails.
      */
-	TestDetails create(TestDetails testDetails);
+	TestDetails create(@Valid TestDetails testDetails);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface TestDetailsService {
 	 */
 	TestDetails findById(Integer testdetailsId);
 
+    /**
+	 * Find and return the TestDetails for given testName  if exists.
+	 *
+	 * @param testName value of testName; value cannot be null.
+	 * @return TestDetails associated with the given inputs.
+     * @throws EntityNotFoundException if no matching TestDetails found.
+	 */
+    TestDetails getByTestName(String testName)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing TestDetails. It replaces all fields of the existing TestDetails with the given testDetails.
@@ -62,7 +72,7 @@ public interface TestDetailsService {
 	 * @return The updated TestDetails.
 	 * @throws EntityNotFoundException if no TestDetails is found with given input.
 	 */
-	TestDetails update(TestDetails testDetails) throws EntityNotFoundException;
+	TestDetails update(@Valid TestDetails testDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing TestDetails with the given id.

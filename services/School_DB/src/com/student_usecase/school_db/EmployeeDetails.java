@@ -14,12 +14,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -36,19 +38,20 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class EmployeeDetails implements Serializable {
 
     private Integer empId;
-    private String city;
-    private Date dateOfBirth;
     private String firstname;
-    private String jobTitle;
     private String lastname;
-    private Integer managerId;
-    @JsonProperty(access = Access.READ_ONLY)
-    private byte[] picUrl;
     private String state;
+    private String city;
     private String street;
     private String zip;
+    private Date dateOfBirth;
+    private String jobTitle;
+    @JsonProperty(access = Access.READ_ONLY)
+    private byte[] picUrl;
+    private Integer managerId;
     private EmployeeDetails employeeDetailsByManagerId;
     private List<EmployeeDetails> employeeDetailsesForManagerId;
+    private UserLogin userLogin;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,24 +64,6 @@ public class EmployeeDetails implements Serializable {
         this.empId = empId;
     }
 
-    @Column(name = "`CITY`", nullable = true, length = 255)
-    public String getCity() {
-        return this.city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Column(name = "`DATE_OF_BIRTH`", nullable = true)
-    public Date getDateOfBirth() {
-        return this.dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     @Column(name = "`FIRSTNAME`", nullable = true, length = 255)
     public String getFirstname() {
         return this.firstname;
@@ -86,15 +71,6 @@ public class EmployeeDetails implements Serializable {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    @Column(name = "`JOB_TITLE`", nullable = true, length = 255)
-    public String getJobTitle() {
-        return this.jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
     }
 
     @Column(name = "`LASTNAME`", nullable = true, length = 255)
@@ -106,24 +82,6 @@ public class EmployeeDetails implements Serializable {
         this.lastname = lastname;
     }
 
-    @Column(name = "`MANAGER_ID`", nullable = true, scale = 0, precision = 10)
-    public Integer getManagerId() {
-        return this.managerId;
-    }
-
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
-    }
-
-    @Column(name = "`PIC_URL`", nullable = true)
-    public byte[] getPicUrl() {
-        return this.picUrl;
-    }
-
-    public void setPicUrl(byte[] picUrl) {
-        this.picUrl = picUrl;
-    }
-
     @Column(name = "`STATE`", nullable = true, length = 255)
     public String getState() {
         return this.state;
@@ -131,6 +89,15 @@ public class EmployeeDetails implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Column(name = "`CITY`", nullable = true, length = 255)
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Column(name = "`STREET`", nullable = true, length = 255)
@@ -151,10 +118,46 @@ public class EmployeeDetails implements Serializable {
         this.zip = zip;
     }
 
+    @Column(name = "`DATE_OF_BIRTH`", nullable = true)
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    @Column(name = "`JOB_TITLE`", nullable = true, length = 255)
+    public String getJobTitle() {
+        return this.jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    @Column(name = "`PIC_URL`", nullable = true)
+    public byte[] getPicUrl() {
+        return this.picUrl;
+    }
+
+    public void setPicUrl(byte[] picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    @Column(name = "`MANAGER_ID`", nullable = true, scale = 0, precision = 10)
+    public Integer getManagerId() {
+        return this.managerId;
+    }
+
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
+    }
+
     // ignoring self relation properties to avoid circular loops.
     @JsonIgnoreProperties({"employeeDetailsByManagerId", "employeeDetailsesForManagerId"})
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`MANAGER_ID`", referencedColumnName = "`EMP_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_EMPLOYEE_DETAILS_TO_EMFB1X`"))
     public EmployeeDetails getEmployeeDetailsByManagerId() {
         return this.employeeDetailsByManagerId;
     }
@@ -170,13 +173,22 @@ public class EmployeeDetails implements Serializable {
     // ignoring self relation properties to avoid circular loops.
     @JsonIgnoreProperties({"employeeDetailsByManagerId", "employeeDetailsesForManagerId"})
     @JsonInclude(Include.NON_EMPTY)
-    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "employeeDetailsByManagerId")
     public List<EmployeeDetails> getEmployeeDetailsesForManagerId() {
         return this.employeeDetailsesForManagerId;
     }
 
     public void setEmployeeDetailsesForManagerId(List<EmployeeDetails> employeeDetailsesForManagerId) {
         this.employeeDetailsesForManagerId = employeeDetailsesForManagerId;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "employeeDetails")
+    public UserLogin getUserLogin() {
+        return this.userLogin;
+    }
+
+    public void setUserLogin(UserLogin userLogin) {
+        this.userLogin = userLogin;
     }
 
     @Override

@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -34,10 +36,12 @@ import com.student_usecase.school_db.AcademicTestSubjects;
  * @see AcademicSubjects
  */
 @Service("School_DB.AcademicSubjectsService")
+@Validated
 public class AcademicSubjectsServiceImpl implements AcademicSubjectsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AcademicSubjectsServiceImpl.class);
 
+    @Lazy
     @Autowired
 	@Qualifier("School_DB.AcademicTestSubjectsService")
 	private AcademicTestSubjectsService academicTestSubjectsService;

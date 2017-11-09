@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +18,6 @@ import com.wavemaker.runtime.data.expression.QueryFilter;
 import com.wavemaker.runtime.data.model.AggregationInfo;
 import com.wavemaker.runtime.file.model.Downloadable;
 
-import com.student_usecase.school_db.StudentDetails;
 import com.student_usecase.school_db.StudentIdentification;
 
 /**
@@ -32,7 +33,7 @@ public interface StudentIdentificationService {
      * @param studentIdentification Details of the StudentIdentification to be created; value cannot be null.
      * @return The newly created StudentIdentification.
      */
-	StudentIdentification create(StudentIdentification studentIdentification);
+	StudentIdentification create(@Valid StudentIdentification studentIdentification);
 
 
 	/**
@@ -52,6 +53,14 @@ public interface StudentIdentificationService {
 	 */
 	StudentIdentification findById(Integer studentidentificationId);
 
+    /**
+	 * Find and return the StudentIdentification for given identificationNumber  if exists.
+	 *
+	 * @param identificationNumber value of identificationNumber; value cannot be null.
+	 * @return StudentIdentification associated with the given inputs.
+     * @throws EntityNotFoundException if no matching StudentIdentification found.
+	 */
+    StudentIdentification getByIdentificationNumber(String identificationNumber)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing StudentIdentification. It replaces all fields of the existing StudentIdentification with the given studentIdentification.
@@ -62,7 +71,7 @@ public interface StudentIdentificationService {
 	 * @return The updated StudentIdentification.
 	 * @throws EntityNotFoundException if no StudentIdentification is found with given input.
 	 */
-	StudentIdentification update(StudentIdentification studentIdentification) throws EntityNotFoundException;
+	StudentIdentification update(@Valid StudentIdentification studentIdentification) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StudentIdentification with the given id.
@@ -141,17 +150,6 @@ public interface StudentIdentificationService {
 	 */
 	Page<Map<String, Object>> getAggregatedValues(AggregationInfo aggregationInfo, Pageable pageable);
 
-    /*
-     * Returns the associated studentDetailses for given StudentIdentification id.
-     *
-     * @param identificationId value of identificationId; value cannot be null
-     * @param pageable Details of the pagination information along with the sorting options. If null returns all matching records.
-     * @return Paginated list of associated StudentDetails instances.
-     *
-     * @see Pageable
-     * @see Page
-     */
-    Page<StudentDetails> findAssociatedStudentDetailses(Integer identificationId, Pageable pageable);
 
 }
 

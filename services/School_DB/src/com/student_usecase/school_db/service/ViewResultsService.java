@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface ViewResultsService {
      * @param viewResults Details of the ViewResults to be created; value cannot be null.
      * @return The newly created ViewResults.
      */
-	ViewResults create(ViewResults viewResults);
+	ViewResults create(@Valid ViewResults viewResults);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface ViewResultsService {
 	 * @return The updated ViewResults.
 	 * @throws EntityNotFoundException if no ViewResults is found with given input.
 	 */
-	ViewResults update(ViewResults viewResults) throws EntityNotFoundException;
+	ViewResults update(@Valid ViewResults viewResults) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing ViewResults with the given id.

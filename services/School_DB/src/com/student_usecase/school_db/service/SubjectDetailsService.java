@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface SubjectDetailsService {
      * @param subjectDetails Details of the SubjectDetails to be created; value cannot be null.
      * @return The newly created SubjectDetails.
      */
-	SubjectDetails create(SubjectDetails subjectDetails);
+	SubjectDetails create(@Valid SubjectDetails subjectDetails);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface SubjectDetailsService {
 	 */
 	SubjectDetails findById(Integer subjectdetailsId);
 
+    /**
+	 * Find and return the SubjectDetails for given subjectName  if exists.
+	 *
+	 * @param subjectName value of subjectName; value cannot be null.
+	 * @return SubjectDetails associated with the given inputs.
+     * @throws EntityNotFoundException if no matching SubjectDetails found.
+	 */
+    SubjectDetails getBySubjectName(String subjectName)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing SubjectDetails. It replaces all fields of the existing SubjectDetails with the given subjectDetails.
@@ -62,7 +72,7 @@ public interface SubjectDetailsService {
 	 * @return The updated SubjectDetails.
 	 * @throws EntityNotFoundException if no SubjectDetails is found with given input.
 	 */
-	SubjectDetails update(SubjectDetails subjectDetails) throws EntityNotFoundException;
+	SubjectDetails update(@Valid SubjectDetails subjectDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing SubjectDetails with the given id.

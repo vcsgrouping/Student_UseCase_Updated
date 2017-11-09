@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,7 +35,7 @@ public interface StudentDetailsService {
      * @param studentDetails Details of the StudentDetails to be created; value cannot be null.
      * @return The newly created StudentDetails.
      */
-	StudentDetails create(StudentDetails studentDetails);
+	StudentDetails create(@Valid StudentDetails studentDetails);
 
 
 	/**
@@ -53,6 +55,14 @@ public interface StudentDetailsService {
 	 */
 	StudentDetails findById(Integer studentdetailsId);
 
+    /**
+	 * Find and return the StudentDetails for given studentIdentificationId  if exists.
+	 *
+	 * @param studentIdentificationId value of studentIdentificationId; value cannot be null.
+	 * @return StudentDetails associated with the given inputs.
+     * @throws EntityNotFoundException if no matching StudentDetails found.
+	 */
+    StudentDetails getByStudentIdentificationId(Integer studentIdentificationId)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing StudentDetails. It replaces all fields of the existing StudentDetails with the given studentDetails.
@@ -63,7 +73,7 @@ public interface StudentDetailsService {
 	 * @return The updated StudentDetails.
 	 * @throws EntityNotFoundException if no StudentDetails is found with given input.
 	 */
-	StudentDetails update(StudentDetails studentDetails) throws EntityNotFoundException;
+	StudentDetails update(@Valid StudentDetails studentDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StudentDetails with the given id.

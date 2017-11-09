@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -34,8 +35,8 @@ public class AcademicTestSubjects implements Serializable {
 
     private String academicYear;
     private Integer standardId;
-    private Integer subjectId;
     private Integer testId;
+    private Integer subjectId;
     private String maxMarks;
     private AcademicSubjects academicSubjects;
     private TestDetails testDetails;
@@ -62,16 +63,6 @@ public class AcademicTestSubjects implements Serializable {
     }
 
     @Id
-    @Column(name = "`SUBJECT_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getSubjectId() {
-        return this.subjectId;
-    }
-
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    @Id
     @Column(name = "`TEST_ID`", nullable = false, scale = 0, precision = 10)
     public Integer getTestId() {
         return this.testId;
@@ -79,6 +70,16 @@ public class AcademicTestSubjects implements Serializable {
 
     public void setTestId(Integer testId) {
         this.testId = testId;
+    }
+
+    @Id
+    @Column(name = "`SUBJECT_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getSubjectId() {
+        return this.subjectId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     @Column(name = "`MAX_MARKS`", nullable = true, length = 255)
@@ -90,8 +91,12 @@ public class AcademicTestSubjects implements Serializable {
         this.maxMarks = maxMarks;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns(value = {
+            @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false),
+            @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false),
+            @JoinColumn(name = "`SUBJECT_ID`", referencedColumnName = "`SUBJECT_ID`", insertable = false, updatable = false)},
+        foreignKey = @ForeignKey(name = "`FK_ACADEMIC_TEST_SUBJECTGRO6a`"))
     public AcademicSubjects getAcademicSubjects() {
         return this.academicSubjects;
     }
@@ -106,8 +111,8 @@ public class AcademicTestSubjects implements Serializable {
         this.academicSubjects = academicSubjects;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`TEST_ID`", referencedColumnName = "`TEST_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMIC_TEST_SUBJECTkgNBV`"))
     public TestDetails getTestDetails() {
         return this.testDetails;
     }
@@ -121,7 +126,7 @@ public class AcademicTestSubjects implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academicTestSubjects")
     public List<TestConducted> getTestConducteds() {
         return this.testConducteds;
     }
@@ -137,16 +142,16 @@ public class AcademicTestSubjects implements Serializable {
         final AcademicTestSubjects academicTestSubjects = (AcademicTestSubjects) o;
         return Objects.equals(getAcademicYear(), academicTestSubjects.getAcademicYear()) &&
                 Objects.equals(getStandardId(), academicTestSubjects.getStandardId()) &&
-                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId()) &&
-                Objects.equals(getTestId(), academicTestSubjects.getTestId());
+                Objects.equals(getTestId(), academicTestSubjects.getTestId()) &&
+                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getAcademicYear(),
                 getStandardId(),
-                getSubjectId(),
-                getTestId());
+                getTestId(),
+                getSubjectId());
     }
 }
 

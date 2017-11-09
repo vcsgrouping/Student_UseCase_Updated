@@ -10,10 +10,26 @@ import java.util.Objects;
 
 public class ResultsId implements Serializable {
 
+    private Integer testConductedId;
+    private Integer studentId;
     private String academicYear;
     private Integer standardId;
-    private Integer studentId;
-    private Integer testConductedId;
+
+    public Integer getTestConductedId() {
+        return this.testConductedId;
+    }
+
+    public void setTestConductedId(Integer testConductedId) {
+        this.testConductedId = testConductedId;
+    }
+
+    public Integer getStudentId() {
+        return this.studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -31,38 +47,22 @@ public class ResultsId implements Serializable {
         this.standardId = standardId;
     }
 
-    public Integer getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
-
-    public Integer getTestConductedId() {
-        return this.testConductedId;
-    }
-
-    public void setTestConductedId(Integer testConductedId) {
-        this.testConductedId = testConductedId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Results)) return false;
         final Results results = (Results) o;
-        return Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
-                Objects.equals(getStandardId(), results.getStandardId()) &&
+        return Objects.equals(getTestConductedId(), results.getTestConductedId()) &&
                 Objects.equals(getStudentId(), results.getStudentId()) &&
-                Objects.equals(getTestConductedId(), results.getTestConductedId());
+                Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
+                Objects.equals(getStandardId(), results.getStandardId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getStandardId(),
+        return Objects.hash(getTestConductedId(),
                 getStudentId(),
-                getTestConductedId());
+                getAcademicYear(),
+                getStandardId());
     }
 }

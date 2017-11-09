@@ -19,12 +19,6 @@ import com.student_usecase.school_db.models.query.*;
 public interface School_DBQueryExecutorService_V1 {
 
     @Deprecated
-    public Page<Object> executeSV_GetSTudentResultsForStandard(Pageable pageable, String academicYear, Integer standardid, Integer testid);
-
-    @Deprecated
-    public Page<Object> executeSV_CountOfStudents(Pageable pageable, Integer standard, String year);
-
-    @Deprecated
     public Page<Object> executeSV_Top3StudentsFromAllStandards(Pageable pageable, Integer testid, String academicyear);
 
     @Deprecated
@@ -32,6 +26,12 @@ public interface School_DBQueryExecutorService_V1 {
 
     @Deprecated
     public Page<Object> executeSV_CountOfStudentPerGrade(Pageable pageable, String academicYear, Integer standardid);
+
+    @Deprecated
+    public Page<Object> executeSV_CountOfStudents(Pageable pageable, Integer standard, String year);
+
+    @Deprecated
+    public Page<Object> executeSV_GetSTudentResultsForStandard(Pageable pageable, String academicYear, Integer standardid, Integer testid);
 
 }
 

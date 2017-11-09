@@ -52,9 +52,9 @@ public class UserLoginController {
 	private UserLoginService userLoginService;
 
 	@ApiOperation(value = "Creates a new UserLogin instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public UserLogin createUserLogin(@RequestBody UserLogin userLogin) {
+public UserLogin createUserLogin(@RequestBody UserLogin userLogin) {
 		LOGGER.debug("Create UserLogin with information: {}" , userLogin);
 
 		userLogin = userLoginService.create(userLogin);
@@ -62,7 +62,6 @@ public class UserLoginController {
 
 	    return userLogin;
 	}
-
 
     @ApiOperation(value = "Returns the UserLogin instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)

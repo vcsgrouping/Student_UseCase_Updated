@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,7 +35,7 @@ public interface TestConductedService {
      * @param testConducted Details of the TestConducted to be created; value cannot be null.
      * @return The newly created TestConducted.
      */
-	TestConducted create(TestConducted testConducted);
+	TestConducted create(@Valid TestConducted testConducted);
 
 
 	/**
@@ -63,7 +65,7 @@ public interface TestConductedService {
 	 * @return The updated TestConducted.
 	 * @throws EntityNotFoundException if no TestConducted is found with given input.
 	 */
-	TestConducted update(TestConducted testConducted) throws EntityNotFoundException;
+	TestConducted update(@Valid TestConducted testConducted) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing TestConducted with the given id.

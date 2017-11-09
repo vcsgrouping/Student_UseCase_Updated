@@ -9,6 +9,8 @@ package com.student_usecase.school_db.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,48 +46,10 @@ public class QueryExecutionController {
     @Autowired
     private School_DBQueryExecutorService queryService;
 
-    @RequestMapping(value = "/queries/SV_GetSTudentResultsForStandard", method = RequestMethod.GET)
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    @ApiOperation(value = "Performance Chart")
-    public Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(@RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, @RequestParam(value = "testid") Integer testid, Pageable pageable) {
-        LOGGER.debug("Executing named query: SV_GetSTudentResultsForStandard");
-        Page<SvGetStudentResultsForStandardResponse> _result = queryService.executeSV_GetSTudentResultsForStandard(academicYear, standardid, testid, pageable);
-        LOGGER.debug("got the result for named query: SV_GetSTudentResultsForStandard, result:{}", _result);
-        return _result;
-    }
-
-    @ApiOperation(value = "Returns downloadable file for query SV_GetSTudentResultsForStandard")
-    @RequestMapping(value = "/queries/SV_GetSTudentResultsForStandard/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Downloadable exportSV_GetSTudentResultsForStandard(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, @RequestParam(value = "testid") Integer testid, Pageable pageable) {
-        LOGGER.debug("Exporting named query: SV_GetSTudentResultsForStandard");
-
-        return queryService.exportSV_GetSTudentResultsForStandard(exportType, academicYear, standardid, testid, pageable);
-    }
-
-    @RequestMapping(value = "/queries/SV_CountOfStudents", method = RequestMethod.GET)
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    @ApiOperation(value = "Count Of Students")
-    public Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(@RequestParam(value = "standard") Integer standard, @RequestParam(value = "year") String year, Pageable pageable) {
-        LOGGER.debug("Executing named query: SV_CountOfStudents");
-        Page<SvCountOfStudentsResponse> _result = queryService.executeSV_CountOfStudents(standard, year, pageable);
-        LOGGER.debug("got the result for named query: SV_CountOfStudents, result:{}", _result);
-        return _result;
-    }
-
-    @ApiOperation(value = "Returns downloadable file for query SV_CountOfStudents")
-    @RequestMapping(value = "/queries/SV_CountOfStudents/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Downloadable exportSV_CountOfStudents(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "standard") Integer standard, @RequestParam(value = "year") String year, Pageable pageable) {
-        LOGGER.debug("Exporting named query: SV_CountOfStudents");
-
-        return queryService.exportSV_CountOfStudents(exportType, standard, year, pageable);
-    }
-
     @RequestMapping(value = "/queries/SV_Top3StudentsFromAllStandards", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     @ApiOperation(value = "Top3StudentsFromAllStandards")
-    public Page<SvTop3studentsFromAllStandardsResponse> executeSV_Top3StudentsFromAllStandards(@RequestParam(value = "TESTID") Integer testid, @RequestParam(value = "ACADEMICYEAR") String academicyear, Pageable pageable) {
+    public Page<SvTop3studentsFromAllStandardsResponse> executeSV_Top3StudentsFromAllStandards(@RequestParam(value = "TESTID") Integer testid, @RequestParam(value = "ACADEMICYEAR") String academicyear, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Executing named query: SV_Top3StudentsFromAllStandards");
         Page<SvTop3studentsFromAllStandardsResponse> _result = queryService.executeSV_Top3StudentsFromAllStandards(testid, academicyear, pageable);
         LOGGER.debug("got the result for named query: SV_Top3StudentsFromAllStandards, result:{}", _result);
@@ -95,7 +59,7 @@ public class QueryExecutionController {
     @ApiOperation(value = "Returns downloadable file for query SV_Top3StudentsFromAllStandards")
     @RequestMapping(value = "/queries/SV_Top3StudentsFromAllStandards/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Downloadable exportSV_Top3StudentsFromAllStandards(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "TESTID") Integer testid, @RequestParam(value = "ACADEMICYEAR") String academicyear, Pageable pageable) {
+    public Downloadable exportSV_Top3StudentsFromAllStandards(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "TESTID") Integer testid, @RequestParam(value = "ACADEMICYEAR") String academicyear, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Exporting named query: SV_Top3StudentsFromAllStandards");
 
         return queryService.exportSV_Top3StudentsFromAllStandards(exportType, testid, academicyear, pageable);
@@ -104,7 +68,7 @@ public class QueryExecutionController {
     @RequestMapping(value = "/queries/SV_AcademicSubjectsByStandard", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     @ApiOperation(value = "AcademicSubjectsByStandard")
-    public Page<SvAcademicSubjectsByStandardResponse> executeSV_AcademicSubjectsByStandard(@RequestParam(value = "year") String year, @RequestParam(value = "standard") Integer standard, Pageable pageable) {
+    public Page<SvAcademicSubjectsByStandardResponse> executeSV_AcademicSubjectsByStandard(@RequestParam(value = "year") String year, @RequestParam(value = "standard") Integer standard, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Executing named query: SV_AcademicSubjectsByStandard");
         Page<SvAcademicSubjectsByStandardResponse> _result = queryService.executeSV_AcademicSubjectsByStandard(year, standard, pageable);
         LOGGER.debug("got the result for named query: SV_AcademicSubjectsByStandard, result:{}", _result);
@@ -114,7 +78,7 @@ public class QueryExecutionController {
     @ApiOperation(value = "Returns downloadable file for query SV_AcademicSubjectsByStandard")
     @RequestMapping(value = "/queries/SV_AcademicSubjectsByStandard/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Downloadable exportSV_AcademicSubjectsByStandard(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "year") String year, @RequestParam(value = "standard") Integer standard, Pageable pageable) {
+    public Downloadable exportSV_AcademicSubjectsByStandard(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "year") String year, @RequestParam(value = "standard") Integer standard, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Exporting named query: SV_AcademicSubjectsByStandard");
 
         return queryService.exportSV_AcademicSubjectsByStandard(exportType, year, standard, pageable);
@@ -123,7 +87,7 @@ public class QueryExecutionController {
     @RequestMapping(value = "/queries/SV_CountOfStudentPerGrade", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     @ApiOperation(value = "Performance Students Per Grade")
-    public Page<SvCountOfStudentPerGradeResponse> executeSV_CountOfStudentPerGrade(@RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, Pageable pageable) {
+    public Page<SvCountOfStudentPerGradeResponse> executeSV_CountOfStudentPerGrade(@RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Executing named query: SV_CountOfStudentPerGrade");
         Page<SvCountOfStudentPerGradeResponse> _result = queryService.executeSV_CountOfStudentPerGrade(academicYear, standardid, pageable);
         LOGGER.debug("got the result for named query: SV_CountOfStudentPerGrade, result:{}", _result);
@@ -133,10 +97,48 @@ public class QueryExecutionController {
     @ApiOperation(value = "Returns downloadable file for query SV_CountOfStudentPerGrade")
     @RequestMapping(value = "/queries/SV_CountOfStudentPerGrade/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Downloadable exportSV_CountOfStudentPerGrade(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, Pageable pageable) {
+    public Downloadable exportSV_CountOfStudentPerGrade(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, Pageable pageable, HttpServletRequest _request) {
         LOGGER.debug("Exporting named query: SV_CountOfStudentPerGrade");
 
         return queryService.exportSV_CountOfStudentPerGrade(exportType, academicYear, standardid, pageable);
+    }
+
+    @RequestMapping(value = "/queries/SV_CountOfStudents", method = RequestMethod.GET)
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    @ApiOperation(value = "Count Of Students")
+    public Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(@RequestParam(value = "standard") Integer standard, @RequestParam(value = "year") String year, Pageable pageable, HttpServletRequest _request) {
+        LOGGER.debug("Executing named query: SV_CountOfStudents");
+        Page<SvCountOfStudentsResponse> _result = queryService.executeSV_CountOfStudents(standard, year, pageable);
+        LOGGER.debug("got the result for named query: SV_CountOfStudents, result:{}", _result);
+        return _result;
+    }
+
+    @ApiOperation(value = "Returns downloadable file for query SV_CountOfStudents")
+    @RequestMapping(value = "/queries/SV_CountOfStudents/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public Downloadable exportSV_CountOfStudents(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "standard") Integer standard, @RequestParam(value = "year") String year, Pageable pageable, HttpServletRequest _request) {
+        LOGGER.debug("Exporting named query: SV_CountOfStudents");
+
+        return queryService.exportSV_CountOfStudents(exportType, standard, year, pageable);
+    }
+
+    @RequestMapping(value = "/queries/SV_GetSTudentResultsForStandard", method = RequestMethod.GET)
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    @ApiOperation(value = "Performance Chart")
+    public Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(@RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, @RequestParam(value = "testid") Integer testid, Pageable pageable, HttpServletRequest _request) {
+        LOGGER.debug("Executing named query: SV_GetSTudentResultsForStandard");
+        Page<SvGetStudentResultsForStandardResponse> _result = queryService.executeSV_GetSTudentResultsForStandard(academicYear, standardid, testid, pageable);
+        LOGGER.debug("got the result for named query: SV_GetSTudentResultsForStandard, result:{}", _result);
+        return _result;
+    }
+
+    @ApiOperation(value = "Returns downloadable file for query SV_GetSTudentResultsForStandard")
+    @RequestMapping(value = "/queries/SV_GetSTudentResultsForStandard/export/{exportType}", method = RequestMethod.GET, produces = "application/octet-stream")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public Downloadable exportSV_GetSTudentResultsForStandard(@PathVariable("exportType") ExportType exportType, @RequestParam(value = "academicYear") String academicYear, @RequestParam(value = "standardid") Integer standardid, @RequestParam(value = "testid") Integer testid, Pageable pageable, HttpServletRequest _request) {
+        LOGGER.debug("Exporting named query: SV_GetSTudentResultsForStandard");
+
+        return queryService.exportSV_GetSTudentResultsForStandard(exportType, academicYear, standardid, testid, pageable);
     }
 
 }

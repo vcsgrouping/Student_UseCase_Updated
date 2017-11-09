@@ -54,9 +54,9 @@ public class ResultsController {
 	private ResultsService resultsService;
 
 	@ApiOperation(value = "Creates a new Results instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public Results createResults(@RequestBody Results results) {
+public Results createResults(@RequestBody Results results) {
 		LOGGER.debug("Create Results with information: {}" , results);
 
 		results = resultsService.create(results);
@@ -65,7 +65,7 @@ public class ResultsController {
 	    return results;
 	}
 
-    @ApiOperation(value = "Returns the Results instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the Results instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     public Results getResults(@RequestParam("academicYear") Date academicYear,@RequestParam("grade") String grade,@RequestParam("marks") Short marks,@RequestParam("rollnumber") Integer rollnumber,@RequestParam("standard") String standard) throws EntityNotFoundException {

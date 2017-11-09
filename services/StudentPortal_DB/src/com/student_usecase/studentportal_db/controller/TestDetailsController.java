@@ -53,9 +53,9 @@ public class TestDetailsController {
 	private TestDetailsService testDetailsService;
 
 	@ApiOperation(value = "Creates a new TestDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public TestDetails createTestDetails(@RequestBody TestDetails testDetails) {
+public TestDetails createTestDetails(@RequestBody TestDetails testDetails) {
 		LOGGER.debug("Create TestDetails with information: {}" , testDetails);
 
 		testDetails = testDetailsService.create(testDetails);
@@ -64,7 +64,7 @@ public class TestDetailsController {
 	    return testDetails;
 	}
 
-    @ApiOperation(value = "Returns the TestDetails instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the TestDetails instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     public TestDetails getTestDetails(@RequestParam("testId") Integer testId,@RequestParam("testName") String testName) throws EntityNotFoundException {

@@ -7,6 +7,8 @@ package com.student_usecase.studentportal_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface ResultsService {
      * @param results Details of the Results to be created; value cannot be null.
      * @return The newly created Results.
      */
-	Results create(Results results);
+	Results create(@Valid Results results);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface ResultsService {
 	 * @return The updated Results.
 	 * @throws EntityNotFoundException if no Results is found with given input.
 	 */
-	Results update(Results results) throws EntityNotFoundException;
+	Results update(@Valid Results results) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing Results with the given id.

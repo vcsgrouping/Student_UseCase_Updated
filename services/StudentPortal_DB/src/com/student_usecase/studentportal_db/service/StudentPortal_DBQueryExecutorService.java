@@ -22,17 +22,9 @@ public interface StudentPortal_DBQueryExecutorService {
 
     Downloadable exportSV_TestDetails(ExportType exportType, Pageable pageable);
 
-    Page<SvAcademicSubjectsByStandardResponse> executeSV_AcademicSubjectsByStandard(Date year, String standard, Pageable pageable);
-
-    Downloadable exportSV_AcademicSubjectsByStandard(ExportType exportType, Date year, String standard, Pageable pageable);
-
     Page<SvResultsByTestIdResponse> executeSV_ResultsByTestID(String tname, Pageable pageable);
 
     Downloadable exportSV_ResultsByTestID(ExportType exportType, String tname, Pageable pageable);
-
-    Page<SvCountOfStudentsInAcademicsResponse> executeSV_CountOfStudentsInAcademics(String standard, Date year, Pageable pageable);
-
-    Downloadable exportSV_CountOfStudentsInAcademics(ExportType exportType, String standard, Date year, Pageable pageable);
 
     Page<SvStudentAcademicResultsResponse> executeSV_StudentAcademicResults(Integer studentId, Pageable pageable);
 
@@ -41,6 +33,14 @@ public interface StudentPortal_DBQueryExecutorService {
     Page<SvTestQueryResponse> executeSV_TestQuery(Pageable pageable);
 
     Downloadable exportSV_TestQuery(ExportType exportType, Pageable pageable);
+
+    Page<SvAcademicSubjectsByStandardResponse> executeSV_AcademicSubjectsByStandard(Date year, String standard, Pageable pageable);
+
+    Downloadable exportSV_AcademicSubjectsByStandard(ExportType exportType, Date year, String standard, Pageable pageable);
+
+    Page<SvCountOfStudentsInAcademicsResponse> executeSV_CountOfStudentsInAcademics(String standard, Date year, Pageable pageable);
+
+    Downloadable exportSV_CountOfStudentsInAcademics(ExportType exportType, String standard, Date year, Pageable pageable);
 
 }
 

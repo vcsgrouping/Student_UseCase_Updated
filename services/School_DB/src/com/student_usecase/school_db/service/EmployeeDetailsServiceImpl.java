@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -24,6 +26,7 @@ import com.wavemaker.runtime.data.model.AggregationInfo;
 import com.wavemaker.runtime.file.model.Downloadable;
 
 import com.student_usecase.school_db.EmployeeDetails;
+import com.student_usecase.school_db.UserLogin;
 
 
 /**
@@ -32,10 +35,15 @@ import com.student_usecase.school_db.EmployeeDetails;
  * @see EmployeeDetails
  */
 @Service("School_DB.EmployeeDetailsService")
+@Validated
 public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeDetailsServiceImpl.class);
 
+    @Lazy
+    @Autowired
+	@Qualifier("School_DB.UserLoginService")
+	private UserLoginService userLoginService;
 
     @Autowired
     @Qualifier("School_DB.EmployeeDetailsDao")
@@ -56,6 +64,13 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
                 LOGGER.debug("Creating a new child EmployeeDetails with information: {}", employeeDetailsesForManagerId);
                 create(employeeDetailsesForManagerId);
             }
+        }
+
+        if(employeeDetailsCreated.getUserLogin() != null) {
+            UserLogin userLogin = employeeDetailsCreated.getUserLogin();
+            LOGGER.debug("Creating a new child UserLogin with information: {}", userLogin);
+            userLogin.setEmployeeDetails(employeeDetailsCreated);
+            userLoginService.create(userLogin);
         }
         return employeeDetailsCreated;
     }
@@ -148,6 +163,14 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
         return findAll(queryBuilder.toString(), pageable);
     }
 
+    /**
+	 * This setter method should only be used by unit tests
+	 *
+	 * @param service UserLoginService instance
+	 */
+	protected void setUserLoginService(UserLoginService service) {
+        this.userLoginService = service;
+    }
 
 }
 

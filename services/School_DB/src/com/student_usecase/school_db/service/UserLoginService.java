@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -31,7 +33,7 @@ public interface UserLoginService {
      * @param userLogin Details of the UserLogin to be created; value cannot be null.
      * @return The newly created UserLogin.
      */
-	UserLogin create(UserLogin userLogin);
+	UserLogin create(@Valid UserLogin userLogin);
 
 
 	/**
@@ -61,7 +63,7 @@ public interface UserLoginService {
 	 * @return The updated UserLogin.
 	 * @throws EntityNotFoundException if no UserLogin is found with given input.
 	 */
-	UserLogin update(UserLogin userLogin) throws EntityNotFoundException;
+	UserLogin update(@Valid UserLogin userLogin) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing UserLogin with the given id.

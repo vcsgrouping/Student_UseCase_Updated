@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import com.wavemaker.runtime.data.dao.WMGenericDao;
 import com.wavemaker.runtime.data.exception.EntityNotFoundException;
@@ -33,6 +34,7 @@ import com.student_usecase.school_db.ViewResultsId;
  * @see ViewResults
  */
 @Service("School_DB.ViewResultsService")
+@Validated
 public class ViewResultsServiceImpl implements ViewResultsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewResultsServiceImpl.class);
@@ -81,12 +83,12 @@ public class ViewResultsServiceImpl implements ViewResultsService {
         this.wmGenericDao.update(viewResults);
 
         ViewResultsId viewresultsId = new ViewResultsId();
+        viewresultsId.setTotalMarks(viewResults.getTotalMarks());
         viewresultsId.setAcademicYear(viewResults.getAcademicYear());
         viewresultsId.setStandardId(viewResults.getStandardId());
         viewresultsId.setStudentId(viewResults.getStudentId());
         viewresultsId.setStudentName(viewResults.getStudentName());
         viewresultsId.setTestId(viewResults.getTestId());
-        viewresultsId.setTotalMarks(viewResults.getTotalMarks());
 
         return this.wmGenericDao.findById(viewresultsId);
     }

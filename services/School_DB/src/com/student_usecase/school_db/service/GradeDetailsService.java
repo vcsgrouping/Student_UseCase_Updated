@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface GradeDetailsService {
      * @param gradeDetails Details of the GradeDetails to be created; value cannot be null.
      * @return The newly created GradeDetails.
      */
-	GradeDetails create(GradeDetails gradeDetails);
+	GradeDetails create(@Valid GradeDetails gradeDetails);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface GradeDetailsService {
 	 */
 	GradeDetails findById(Integer gradedetailsId);
 
+    /**
+	 * Find and return the GradeDetails for given grade  if exists.
+	 *
+	 * @param grade value of grade; value cannot be null.
+	 * @return GradeDetails associated with the given inputs.
+     * @throws EntityNotFoundException if no matching GradeDetails found.
+	 */
+    GradeDetails getByGrade(String grade)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing GradeDetails. It replaces all fields of the existing GradeDetails with the given gradeDetails.
@@ -62,7 +72,7 @@ public interface GradeDetailsService {
 	 * @return The updated GradeDetails.
 	 * @throws EntityNotFoundException if no GradeDetails is found with given input.
 	 */
-	GradeDetails update(GradeDetails gradeDetails) throws EntityNotFoundException;
+	GradeDetails update(@Valid GradeDetails gradeDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing GradeDetails with the given id.

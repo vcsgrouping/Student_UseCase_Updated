@@ -53,9 +53,9 @@ public class SubjectDetailsController {
 	private SubjectDetailsService subjectDetailsService;
 
 	@ApiOperation(value = "Creates a new SubjectDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public SubjectDetails createSubjectDetails(@RequestBody SubjectDetails subjectDetails) {
+public SubjectDetails createSubjectDetails(@RequestBody SubjectDetails subjectDetails) {
 		LOGGER.debug("Create SubjectDetails with information: {}" , subjectDetails);
 
 		subjectDetails = subjectDetailsService.create(subjectDetails);
@@ -63,7 +63,6 @@ public class SubjectDetailsController {
 
 	    return subjectDetails;
 	}
-
 
     @ApiOperation(value = "Returns the SubjectDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +98,14 @@ public class SubjectDetailsController {
         SubjectDetails deletedSubjectDetails = subjectDetailsService.delete(id);
 
         return deletedSubjectDetails != null;
+    }
+
+    @RequestMapping(value = "/subjectName/{subjectName}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching SubjectDetails with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public SubjectDetails getBySubjectName(@PathVariable("subjectName") String subjectName) {
+        LOGGER.debug("Getting SubjectDetails with uniques key SubjectName");
+        return subjectDetailsService.getBySubjectName(subjectName);
     }
 
     /**

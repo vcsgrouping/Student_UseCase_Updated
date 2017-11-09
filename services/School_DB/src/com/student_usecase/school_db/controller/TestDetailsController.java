@@ -53,9 +53,9 @@ public class TestDetailsController {
 	private TestDetailsService testDetailsService;
 
 	@ApiOperation(value = "Creates a new TestDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public TestDetails createTestDetails(@RequestBody TestDetails testDetails) {
+public TestDetails createTestDetails(@RequestBody TestDetails testDetails) {
 		LOGGER.debug("Create TestDetails with information: {}" , testDetails);
 
 		testDetails = testDetailsService.create(testDetails);
@@ -63,7 +63,6 @@ public class TestDetailsController {
 
 	    return testDetails;
 	}
-
 
     @ApiOperation(value = "Returns the TestDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +98,14 @@ public class TestDetailsController {
         TestDetails deletedTestDetails = testDetailsService.delete(id);
 
         return deletedTestDetails != null;
+    }
+
+    @RequestMapping(value = "/testName/{testName}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching TestDetails with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public TestDetails getByTestName(@PathVariable("testName") String testName) {
+        LOGGER.debug("Getting TestDetails with uniques key TestName");
+        return testDetailsService.getByTestName(testName);
     }
 
     /**

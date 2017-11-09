@@ -23,12 +23,22 @@ import javax.persistence.Table;
 @IdClass(ViewResultsId.class)
 public class ViewResults implements Serializable {
 
+    private BigInteger totalMarks;
     private String academicYear;
     private Integer standardId;
     private Integer studentId;
     private String studentName;
     private Integer testId;
-    private BigInteger totalMarks;
+
+    @Id
+    @Column(name = "`TOTAL_MARKS`", nullable = true, scale = 0, precision = 27)
+    public BigInteger getTotalMarks() {
+        return this.totalMarks;
+    }
+
+    public void setTotalMarks(BigInteger totalMarks) {
+        this.totalMarks = totalMarks;
+    }
 
     @Id
     @Column(name = "`ACADEMIC_YEAR`", nullable = false, length = 255)
@@ -80,16 +90,6 @@ public class ViewResults implements Serializable {
         this.testId = testId;
     }
 
-    @Id
-    @Column(name = "`TOTAL_MARKS`", nullable = false, scale = 0, precision = 27)
-    public BigInteger getTotalMarks() {
-        return this.totalMarks;
-    }
-
-    public void setTotalMarks(BigInteger totalMarks) {
-        this.totalMarks = totalMarks;
-    }
-
 
 
     @Override
@@ -97,22 +97,22 @@ public class ViewResults implements Serializable {
         if (this == o) return true;
         if (!(o instanceof ViewResults)) return false;
         final ViewResults viewResults = (ViewResults) o;
-        return Objects.equals(getAcademicYear(), viewResults.getAcademicYear()) &&
+        return Objects.equals(getTotalMarks(), viewResults.getTotalMarks()) &&
+                Objects.equals(getAcademicYear(), viewResults.getAcademicYear()) &&
                 Objects.equals(getStandardId(), viewResults.getStandardId()) &&
                 Objects.equals(getStudentId(), viewResults.getStudentId()) &&
                 Objects.equals(getStudentName(), viewResults.getStudentName()) &&
-                Objects.equals(getTestId(), viewResults.getTestId()) &&
-                Objects.equals(getTotalMarks(), viewResults.getTotalMarks());
+                Objects.equals(getTestId(), viewResults.getTestId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
+        return Objects.hash(getTotalMarks(),
+                getAcademicYear(),
                 getStandardId(),
                 getStudentId(),
                 getStudentName(),
-                getTestId(),
-                getTotalMarks());
+                getTestId());
     }
 }
 

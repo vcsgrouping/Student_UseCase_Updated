@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -78,8 +79,8 @@ public class Academics implements Serializable {
         this.classTeacher = classTeacher;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMICS_TO_ACADEMICtXssM`"))
     public AcademicYear getAcademicYearByAcademicYear() {
         return this.academicYearByAcademicYear;
     }
@@ -92,8 +93,8 @@ public class Academics implements Serializable {
         this.academicYearByAcademicYear = academicYearByAcademicYear;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMICS_TO_STANDARDjy42t`"))
     public StandardDetails getStandardDetails() {
         return this.standardDetails;
     }
@@ -107,7 +108,7 @@ public class Academics implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academics")
     public List<AcademicSubjects> getAcademicSubjectses() {
         return this.academicSubjectses;
     }
@@ -117,7 +118,7 @@ public class Academics implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academics")
     public List<StudentAcademics> getStudentAcademicses() {
         return this.studentAcademicses;
     }

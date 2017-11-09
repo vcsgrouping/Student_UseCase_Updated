@@ -23,19 +23,19 @@ public interface StudentPortal_DBQueryExecutorService_V1 {
     public Page<Object> executeSV_TestDetails(Pageable pageable);
 
     @Deprecated
-    public Page<Object> executeSV_AcademicSubjectsByStandard(Pageable pageable, Date year, String standard);
-
-    @Deprecated
     public Page<Object> executeSV_ResultsByTestID(Pageable pageable, String tname);
-
-    @Deprecated
-    public Page<Object> executeSV_CountOfStudentsInAcademics(Pageable pageable, String standard, Date year);
 
     @Deprecated
     public Page<Object> executeSV_StudentAcademicResults(Pageable pageable, Integer studentId);
 
     @Deprecated
     public Page<Object> executeSV_TestQuery(Pageable pageable);
+
+    @Deprecated
+    public Page<Object> executeSV_AcademicSubjectsByStandard(Pageable pageable, Date year, String standard);
+
+    @Deprecated
+    public Page<Object> executeSV_CountOfStudentsInAcademics(Pageable pageable, String standard, Date year);
 
 }
 

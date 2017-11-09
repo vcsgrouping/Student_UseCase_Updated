@@ -7,6 +7,8 @@ package com.student_usecase.studentportal_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface StandardDetailsService {
      * @param standardDetails Details of the StandardDetails to be created; value cannot be null.
      * @return The newly created StandardDetails.
      */
-	StandardDetails create(StandardDetails standardDetails);
+	StandardDetails create(@Valid StandardDetails standardDetails);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface StandardDetailsService {
 	 * @return The updated StandardDetails.
 	 * @throws EntityNotFoundException if no StandardDetails is found with given input.
 	 */
-	StandardDetails update(StandardDetails standardDetails) throws EntityNotFoundException;
+	StandardDetails update(@Valid StandardDetails standardDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StandardDetails with the given id.

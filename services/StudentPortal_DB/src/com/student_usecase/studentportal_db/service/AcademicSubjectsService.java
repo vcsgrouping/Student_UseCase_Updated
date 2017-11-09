@@ -7,6 +7,8 @@ package com.student_usecase.studentportal_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface AcademicSubjectsService {
      * @param academicSubjects Details of the AcademicSubjects to be created; value cannot be null.
      * @return The newly created AcademicSubjects.
      */
-	AcademicSubjects create(AcademicSubjects academicSubjects);
+	AcademicSubjects create(@Valid AcademicSubjects academicSubjects);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface AcademicSubjectsService {
 	 * @return The updated AcademicSubjects.
 	 * @throws EntityNotFoundException if no AcademicSubjects is found with given input.
 	 */
-	AcademicSubjects update(AcademicSubjects academicSubjects) throws EntityNotFoundException;
+	AcademicSubjects update(@Valid AcademicSubjects academicSubjects) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing AcademicSubjects with the given id.

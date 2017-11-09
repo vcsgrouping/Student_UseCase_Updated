@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface StandardDetailsService {
      * @param standardDetails Details of the StandardDetails to be created; value cannot be null.
      * @return The newly created StandardDetails.
      */
-	StandardDetails create(StandardDetails standardDetails);
+	StandardDetails create(@Valid StandardDetails standardDetails);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface StandardDetailsService {
 	 */
 	StandardDetails findById(Integer standarddetailsId);
 
+    /**
+	 * Find and return the StandardDetails for given standardCode  if exists.
+	 *
+	 * @param standardCode value of standardCode; value cannot be null.
+	 * @return StandardDetails associated with the given inputs.
+     * @throws EntityNotFoundException if no matching StandardDetails found.
+	 */
+    StandardDetails getByStandardCode(String standardCode)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing StandardDetails. It replaces all fields of the existing StandardDetails with the given standardDetails.
@@ -62,7 +72,7 @@ public interface StandardDetailsService {
 	 * @return The updated StandardDetails.
 	 * @throws EntityNotFoundException if no StandardDetails is found with given input.
 	 */
-	StandardDetails update(StandardDetails standardDetails) throws EntityNotFoundException;
+	StandardDetails update(@Valid StandardDetails standardDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StandardDetails with the given id.

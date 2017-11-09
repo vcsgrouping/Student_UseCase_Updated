@@ -32,7 +32,6 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-import com.student_usecase.school_db.StudentDetails;
 import com.student_usecase.school_db.StudentIdentification;
 import com.student_usecase.school_db.service.StudentIdentificationService;
 
@@ -53,9 +52,9 @@ public class StudentIdentificationController {
 	private StudentIdentificationService studentIdentificationService;
 
 	@ApiOperation(value = "Creates a new StudentIdentification instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public StudentIdentification createStudentIdentification(@RequestBody StudentIdentification studentIdentification) {
+public StudentIdentification createStudentIdentification(@RequestBody StudentIdentification studentIdentification) {
 		LOGGER.debug("Create StudentIdentification with information: {}" , studentIdentification);
 
 		studentIdentification = studentIdentificationService.create(studentIdentification);
@@ -63,7 +62,6 @@ public class StudentIdentificationController {
 
 	    return studentIdentification;
 	}
-
 
     @ApiOperation(value = "Returns the StudentIdentification instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +97,14 @@ public class StudentIdentificationController {
         StudentIdentification deletedStudentIdentification = studentIdentificationService.delete(id);
 
         return deletedStudentIdentification != null;
+    }
+
+    @RequestMapping(value = "/identificationNumber/{identificationNumber}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching StudentIdentification with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public StudentIdentification getByIdentificationNumber(@PathVariable("identificationNumber") String identificationNumber) {
+        LOGGER.debug("Getting StudentIdentification with uniques key IdentificationNumber");
+        return studentIdentificationService.getByIdentificationNumber(identificationNumber);
     }
 
     /**
@@ -152,14 +158,6 @@ public class StudentIdentificationController {
         return studentIdentificationService.getAggregatedValues(aggregationInfo, pageable);
     }
 
-    @RequestMapping(value="/{id:.+}/studentDetailses", method=RequestMethod.GET)
-    @ApiOperation(value = "Gets the studentDetailses instance associated with the given id.")
-    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-    public Page<StudentDetails> findAssociatedStudentDetailses(@PathVariable("id") Integer id, Pageable pageable) {
-
-        LOGGER.debug("Fetching all associated studentDetailses");
-        return studentIdentificationService.findAssociatedStudentDetailses(id, pageable);
-    }
 
     /**
 	 * This setter method should only be used by unit tests

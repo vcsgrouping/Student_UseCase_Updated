@@ -7,6 +7,8 @@ package com.student_usecase.studentportal_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface TestDetailsService {
      * @param testDetails Details of the TestDetails to be created; value cannot be null.
      * @return The newly created TestDetails.
      */
-	TestDetails create(TestDetails testDetails);
+	TestDetails create(@Valid TestDetails testDetails);
 
 
 	/**
@@ -62,7 +64,7 @@ public interface TestDetailsService {
 	 * @return The updated TestDetails.
 	 * @throws EntityNotFoundException if no TestDetails is found with given input.
 	 */
-	TestDetails update(TestDetails testDetails) throws EntityNotFoundException;
+	TestDetails update(@Valid TestDetails testDetails) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing TestDetails with the given id.

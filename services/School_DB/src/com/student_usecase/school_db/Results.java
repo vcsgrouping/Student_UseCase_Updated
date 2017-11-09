@@ -11,6 +11,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -26,16 +27,36 @@ import javax.persistence.Table;
 @IdClass(ResultsId.class)
 public class Results implements Serializable {
 
+    private Integer testConductedId;
+    private Integer studentId;
     private String academicYear;
     private Integer standardId;
-    private Integer studentId;
-    private Integer testConductedId;
-    private Integer gradeId;
     private Short marksSecured;
+    private Integer gradeId;
     private Boolean presence;
     private StudentDetails studentDetails;
     private TestConducted testConducted;
     private GradeDetails gradeDetails;
+
+    @Id
+    @Column(name = "`TEST_CONDUCTED_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getTestConductedId() {
+        return this.testConductedId;
+    }
+
+    public void setTestConductedId(Integer testConductedId) {
+        this.testConductedId = testConductedId;
+    }
+
+    @Id
+    @Column(name = "`STUDENT_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getStudentId() {
+        return this.studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
 
     @Id
     @Column(name = "`ACADEMIC_YEAR`", nullable = false, length = 255)
@@ -57,24 +78,13 @@ public class Results implements Serializable {
         this.standardId = standardId;
     }
 
-    @Id
-    @Column(name = "`STUDENT_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getStudentId() {
-        return this.studentId;
+    @Column(name = "`MARKS_SECURED`", nullable = true, scale = 0, precision = 5)
+    public Short getMarksSecured() {
+        return this.marksSecured;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
-
-    @Id
-    @Column(name = "`TEST_CONDUCTED_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getTestConductedId() {
-        return this.testConductedId;
-    }
-
-    public void setTestConductedId(Integer testConductedId) {
-        this.testConductedId = testConductedId;
+    public void setMarksSecured(Short marksSecured) {
+        this.marksSecured = marksSecured;
     }
 
     @Column(name = "`GRADE_ID`", nullable = true, scale = 0, precision = 10)
@@ -86,15 +96,6 @@ public class Results implements Serializable {
         this.gradeId = gradeId;
     }
 
-    @Column(name = "`MARKS_SECURED`", nullable = true, scale = 0, precision = 5)
-    public Short getMarksSecured() {
-        return this.marksSecured;
-    }
-
-    public void setMarksSecured(Short marksSecured) {
-        this.marksSecured = marksSecured;
-    }
-
     @Column(name = "`PRESENCE`", nullable = true)
     public Boolean getPresence() {
         return this.presence;
@@ -104,8 +105,8 @@ public class Results implements Serializable {
         this.presence = presence;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`STUDENT_ID`", referencedColumnName = "`STUDENT_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_RESULTS_TO_STUDENT_DEGRGsr`"))
     public StudentDetails getStudentDetails() {
         return this.studentDetails;
     }
@@ -118,8 +119,12 @@ public class Results implements Serializable {
         this.studentDetails = studentDetails;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns(value = {
+            @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false),
+            @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false),
+            @JoinColumn(name = "`TEST_CONDUCTED_ID`", referencedColumnName = "`TEST_CONDUCTED_ID`", insertable = false, updatable = false)},
+        foreignKey = @ForeignKey(name = "`FK_RESULTS_TO_TEST_CONDUPWxUc`"))
     public TestConducted getTestConducted() {
         return this.testConducted;
     }
@@ -134,8 +139,8 @@ public class Results implements Serializable {
         this.testConducted = testConducted;
     }
 
-    
-    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "`GRADE_ID`", referencedColumnName = "`GRADE_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_RESULTS_TO_GRADE_DETAiHx5M`"))
     public GradeDetails getGradeDetails() {
         return this.gradeDetails;
     }
@@ -153,18 +158,18 @@ public class Results implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Results)) return false;
         final Results results = (Results) o;
-        return Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
-                Objects.equals(getStandardId(), results.getStandardId()) &&
+        return Objects.equals(getTestConductedId(), results.getTestConductedId()) &&
                 Objects.equals(getStudentId(), results.getStudentId()) &&
-                Objects.equals(getTestConductedId(), results.getTestConductedId());
+                Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
+                Objects.equals(getStandardId(), results.getStandardId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getStandardId(),
+        return Objects.hash(getTestConductedId(),
                 getStudentId(),
-                getTestConductedId());
+                getAcademicYear(),
+                getStandardId());
     }
 }
 

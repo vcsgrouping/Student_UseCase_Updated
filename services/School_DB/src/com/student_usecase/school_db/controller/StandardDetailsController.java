@@ -53,9 +53,9 @@ public class StandardDetailsController {
 	private StandardDetailsService standardDetailsService;
 
 	@ApiOperation(value = "Creates a new StandardDetails instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public StandardDetails createStandardDetails(@RequestBody StandardDetails standardDetails) {
+public StandardDetails createStandardDetails(@RequestBody StandardDetails standardDetails) {
 		LOGGER.debug("Create StandardDetails with information: {}" , standardDetails);
 
 		standardDetails = standardDetailsService.create(standardDetails);
@@ -63,7 +63,6 @@ public class StandardDetailsController {
 
 	    return standardDetails;
 	}
-
 
     @ApiOperation(value = "Returns the StandardDetails instance associated with the given id.")
     @RequestMapping(value = "/{id:.+}", method = RequestMethod.GET)
@@ -99,6 +98,14 @@ public class StandardDetailsController {
         StandardDetails deletedStandardDetails = standardDetailsService.delete(id);
 
         return deletedStandardDetails != null;
+    }
+
+    @RequestMapping(value = "/standardCode/{standardCode}", method = RequestMethod.GET)
+    @ApiOperation(value = "Returns the matching StandardDetails with given unique key values.")
+    @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
+    public StandardDetails getByStandardCode(@PathVariable("standardCode") String standardCode) {
+        LOGGER.debug("Getting StandardDetails with uniques key StandardCode");
+        return standardDetailsService.getByStandardCode(standardCode);
     }
 
     /**

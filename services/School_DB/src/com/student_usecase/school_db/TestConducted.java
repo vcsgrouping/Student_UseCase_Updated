@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -37,8 +38,8 @@ public class TestConducted implements Serializable {
     private Integer standardId;
     private Integer testConductedId;
     private int subjectId;
-    private Date testConductedOn;
     private int testId;
+    private Date testConductedOn;
     private AcademicTestSubjects academicTestSubjects;
     private List<Results> resultses;
 
@@ -81,15 +82,6 @@ public class TestConducted implements Serializable {
         this.subjectId = subjectId;
     }
 
-    @Column(name = "`TEST_CONDUCTED_ON`", nullable = true)
-    public Date getTestConductedOn() {
-        return this.testConductedOn;
-    }
-
-    public void setTestConductedOn(Date testConductedOn) {
-        this.testConductedOn = testConductedOn;
-    }
-
     @Column(name = "`TEST_ID`", nullable = false, scale = 0, precision = 10)
     public int getTestId() {
         return this.testId;
@@ -99,8 +91,22 @@ public class TestConducted implements Serializable {
         this.testId = testId;
     }
 
-    
-    
+    @Column(name = "`TEST_CONDUCTED_ON`", nullable = true)
+    public Date getTestConductedOn() {
+        return this.testConductedOn;
+    }
+
+    public void setTestConductedOn(Date testConductedOn) {
+        this.testConductedOn = testConductedOn;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns(value = {
+            @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false),
+            @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false),
+            @JoinColumn(name = "`TEST_ID`", referencedColumnName = "`TEST_ID`", insertable = false, updatable = false),
+            @JoinColumn(name = "`SUBJECT_ID`", referencedColumnName = "`SUBJECT_ID`", insertable = false, updatable = false)},
+        foreignKey = @ForeignKey(name = "`FK_TEST_CONDUCTED_TO_ACAsSyPO`"))
     public AcademicTestSubjects getAcademicTestSubjects() {
         return this.academicTestSubjects;
     }
@@ -109,15 +115,15 @@ public class TestConducted implements Serializable {
         if(academicTestSubjects != null) {
             this.academicYear = academicTestSubjects.getAcademicYear();
             this.standardId = academicTestSubjects.getStandardId();
-            this.subjectId = academicTestSubjects.getSubjectId();
             this.testId = academicTestSubjects.getTestId();
+            this.subjectId = academicTestSubjects.getSubjectId();
         }
 
         this.academicTestSubjects = academicTestSubjects;
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "testConducted")
     public List<Results> getResultses() {
         return this.resultses;
     }

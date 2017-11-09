@@ -35,52 +35,6 @@ public class School_DBQueryExecutorServiceImpl implements School_DBQueryExecutor
 
     @Transactional(readOnly = true, value = "School_DBTransactionManager")
     @Override
-    public Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(String academicYear, Integer standardid, Integer testid, Pageable pageable) {
-        Map params = new HashMap(3);
-
-        params.put("academicYear", academicYear);
-        params.put("standardid", standardid);
-        params.put("testid", testid);
-
-        return queryExecutor.executeNamedQuery("SV_GetSTudentResultsForStandard", params, SvGetStudentResultsForStandardResponse.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
-    public Downloadable exportSV_GetSTudentResultsForStandard(ExportType exportType, String academicYear, Integer standardid, Integer testid, Pageable pageable) {
-        Map params = new HashMap(3);
-
-        params.put("academicYear", academicYear);
-        params.put("standardid", standardid);
-        params.put("testid", testid);
-
-        return queryExecutor.exportNamedQueryData("SV_GetSTudentResultsForStandard", params, exportType, SvGetStudentResultsForStandardResponse.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
-    public Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(Integer standard, String year, Pageable pageable) {
-        Map params = new HashMap(2);
-
-        params.put("standard", standard);
-        params.put("year", year);
-
-        return queryExecutor.executeNamedQuery("SV_CountOfStudents", params, SvCountOfStudentsResponse.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
-    public Downloadable exportSV_CountOfStudents(ExportType exportType, Integer standard, String year, Pageable pageable) {
-        Map params = new HashMap(2);
-
-        params.put("standard", standard);
-        params.put("year", year);
-
-        return queryExecutor.exportNamedQueryData("SV_CountOfStudents", params, exportType, SvCountOfStudentsResponse.class, pageable);
-    }
-
-    @Transactional(readOnly = true, value = "School_DBTransactionManager")
-    @Override
     public Page<SvTop3studentsFromAllStandardsResponse> executeSV_Top3StudentsFromAllStandards(Integer testid, String academicyear, Pageable pageable) {
         Map params = new HashMap(2);
 
@@ -143,6 +97,52 @@ public class School_DBQueryExecutorServiceImpl implements School_DBQueryExecutor
         params.put("standardid", standardid);
 
         return queryExecutor.exportNamedQueryData("SV_CountOfStudentPerGrade", params, exportType, SvCountOfStudentPerGradeResponse.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Page<SvCountOfStudentsResponse> executeSV_CountOfStudents(Integer standard, String year, Pageable pageable) {
+        Map params = new HashMap(2);
+
+        params.put("standard", standard);
+        params.put("year", year);
+
+        return queryExecutor.executeNamedQuery("SV_CountOfStudents", params, SvCountOfStudentsResponse.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Downloadable exportSV_CountOfStudents(ExportType exportType, Integer standard, String year, Pageable pageable) {
+        Map params = new HashMap(2);
+
+        params.put("standard", standard);
+        params.put("year", year);
+
+        return queryExecutor.exportNamedQueryData("SV_CountOfStudents", params, exportType, SvCountOfStudentsResponse.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Page<SvGetStudentResultsForStandardResponse> executeSV_GetSTudentResultsForStandard(String academicYear, Integer standardid, Integer testid, Pageable pageable) {
+        Map params = new HashMap(3);
+
+        params.put("academicYear", academicYear);
+        params.put("standardid", standardid);
+        params.put("testid", testid);
+
+        return queryExecutor.executeNamedQuery("SV_GetSTudentResultsForStandard", params, SvGetStudentResultsForStandardResponse.class, pageable);
+    }
+
+    @Transactional(readOnly = true, value = "School_DBTransactionManager")
+    @Override
+    public Downloadable exportSV_GetSTudentResultsForStandard(ExportType exportType, String academicYear, Integer standardid, Integer testid, Pageable pageable) {
+        Map params = new HashMap(3);
+
+        params.put("academicYear", academicYear);
+        params.put("standardid", standardid);
+        params.put("testid", testid);
+
+        return queryExecutor.exportNamedQueryData("SV_GetSTudentResultsForStandard", params, exportType, SvGetStudentResultsForStandardResponse.class, pageable);
     }
 
 }

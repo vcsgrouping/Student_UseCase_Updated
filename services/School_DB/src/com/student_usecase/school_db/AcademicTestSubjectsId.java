@@ -12,8 +12,8 @@ public class AcademicTestSubjectsId implements Serializable {
 
     private String academicYear;
     private Integer standardId;
-    private Integer subjectId;
     private Integer testId;
+    private Integer subjectId;
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -31,20 +31,20 @@ public class AcademicTestSubjectsId implements Serializable {
         this.standardId = standardId;
     }
 
-    public Integer getSubjectId() {
-        return this.subjectId;
-    }
-
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
-    }
-
     public Integer getTestId() {
         return this.testId;
     }
 
     public void setTestId(Integer testId) {
         this.testId = testId;
+    }
+
+    public Integer getSubjectId() {
+        return this.subjectId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     @Override
@@ -54,15 +54,15 @@ public class AcademicTestSubjectsId implements Serializable {
         final AcademicTestSubjects academicTestSubjects = (AcademicTestSubjects) o;
         return Objects.equals(getAcademicYear(), academicTestSubjects.getAcademicYear()) &&
                 Objects.equals(getStandardId(), academicTestSubjects.getStandardId()) &&
-                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId()) &&
-                Objects.equals(getTestId(), academicTestSubjects.getTestId());
+                Objects.equals(getTestId(), academicTestSubjects.getTestId()) &&
+                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getAcademicYear(),
                 getStandardId(),
-                getSubjectId(),
-                getTestId());
+                getTestId(),
+                getSubjectId());
     }
 }

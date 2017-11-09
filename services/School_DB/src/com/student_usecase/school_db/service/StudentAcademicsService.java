@@ -7,6 +7,8 @@ package com.student_usecase.school_db.service;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,7 +34,7 @@ public interface StudentAcademicsService {
      * @param studentAcademics Details of the StudentAcademics to be created; value cannot be null.
      * @return The newly created StudentAcademics.
      */
-	StudentAcademics create(StudentAcademics studentAcademics);
+	StudentAcademics create(@Valid StudentAcademics studentAcademics);
 
 
 	/**
@@ -52,6 +54,14 @@ public interface StudentAcademicsService {
 	 */
 	StudentAcademics findById(StudentAcademicsId studentacademicsId);
 
+    /**
+	 * Find and return the StudentAcademics for given rollNumber  if exists.
+	 *
+	 * @param rollNumber value of rollNumber; value cannot be null.
+	 * @return StudentAcademics associated with the given inputs.
+     * @throws EntityNotFoundException if no matching StudentAcademics found.
+	 */
+    StudentAcademics getByRollNumber(int rollNumber)throws EntityNotFoundException;
 
 	/**
 	 * Updates the details of an existing StudentAcademics. It replaces all fields of the existing StudentAcademics with the given studentAcademics.
@@ -62,7 +72,7 @@ public interface StudentAcademicsService {
 	 * @return The updated StudentAcademics.
 	 * @throws EntityNotFoundException if no StudentAcademics is found with given input.
 	 */
-	StudentAcademics update(StudentAcademics studentAcademics) throws EntityNotFoundException;
+	StudentAcademics update(@Valid StudentAcademics studentAcademics) throws EntityNotFoundException;
 
     /**
 	 * Deletes an existing StudentAcademics with the given id.

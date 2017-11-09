@@ -54,9 +54,9 @@ public class TestConductedController {
 	private TestConductedService testConductedService;
 
 	@ApiOperation(value = "Creates a new TestConducted instance.")
-	@RequestMapping(method = RequestMethod.POST)
+@RequestMapping(method = RequestMethod.POST)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
-	public TestConducted createTestConducted(@RequestBody TestConducted testConducted) {
+public TestConducted createTestConducted(@RequestBody TestConducted testConducted) {
 		LOGGER.debug("Create TestConducted with information: {}" , testConducted);
 
 		testConducted = testConductedService.create(testConducted);
@@ -65,7 +65,7 @@ public class TestConductedController {
 	    return testConducted;
 	}
 
-    @ApiOperation(value = "Returns the TestConducted instance associated with the given composite-id.")
+@ApiOperation(value = "Returns the TestConducted instance associated with the given composite-id.")
     @RequestMapping(value = "/composite-id", method = RequestMethod.GET)
     @WMAccessVisibility(value = AccessSpecifier.APP_ONLY)
     public TestConducted getTestConducted(@RequestParam("academicYear") String academicYear,@RequestParam("standardId") Integer standardId,@RequestParam("testConductedId") Integer testConductedId) throws EntityNotFoundException {

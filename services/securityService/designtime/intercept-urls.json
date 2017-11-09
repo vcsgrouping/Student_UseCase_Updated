@@ -1,4 +1,9 @@
 [ {
+  "urlPattern" : "/pages/Login/**",
+  "permission" : "PermitAll",
+  "roles" : [ ],
+  "httpMethod" : null
+}, {
   "urlPattern" : "/pages/Main/**",
   "permission" : "Role",
   "roles" : [ "management" ],

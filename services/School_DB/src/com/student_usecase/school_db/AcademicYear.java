@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -26,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name = "`ACADEMIC_YEAR`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_ACADEMIC_YEAR_START_YEAR`", columnNames = {"`START_YEAR`"})})
+            @UniqueConstraint(name = "`UK_ACADEMIC_YEAR_START_YEAR`", columnNames = {"`START_YEAR`"})})
 public class AcademicYear implements Serializable {
 
     private String academicYear;
@@ -63,7 +65,8 @@ public class AcademicYear implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academicYearByAcademicYear")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "academicYearByAcademicYear")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<Academics> getAcademicses() {
         return this.academicses;
     }
@@ -85,4 +88,3 @@ public class AcademicYear implements Serializable {
         return Objects.hash(getAcademicYear());
     }
 }
-

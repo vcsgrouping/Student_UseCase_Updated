@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +19,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -81,6 +85,7 @@ public class Academics implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMICS_TO_ACADEMICtXssM`"))
+    @Fetch(FetchMode.JOIN)
     public AcademicYear getAcademicYearByAcademicYear() {
         return this.academicYearByAcademicYear;
     }
@@ -95,6 +100,7 @@ public class Academics implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMICS_TO_STANDARDjy42t`"))
+    @Fetch(FetchMode.JOIN)
     public StandardDetails getStandardDetails() {
         return this.standardDetails;
     }
@@ -106,9 +112,9 @@ public class Academics implements Serializable {
 
         this.standardDetails = standardDetails;
     }
-
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academics")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "academics")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<AcademicSubjects> getAcademicSubjectses() {
         return this.academicSubjectses;
     }
@@ -118,7 +124,8 @@ public class Academics implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academics")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "academics")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<StudentAcademics> getStudentAcademicses() {
         return this.studentAcademicses;
     }
@@ -142,4 +149,3 @@ public class Academics implements Serializable {
                 getStandardId());
     }
 }
-

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name = "`STANDARD_DETAILS`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_STANDARD_DETAILS_STAN4v4IK`", columnNames = {"`STANDARD_CODE`"})})
+            @UniqueConstraint(name = "`UK_STANDARD_DETAILS_STAN4v4IK`", columnNames = {"`STANDARD_CODE`"})})
 public class StandardDetails implements Serializable {
 
     private Integer standardId;
@@ -66,13 +69,21 @@ public class StandardDetails implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "standardDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "standardDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<Academics> getAcademicses() {
         return this.academicses;
     }
 
     public void setAcademicses(List<Academics> academicses) {
         this.academicses = academicses;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(academicses != null) {
+            academicses.forEach(_academics -> _academics.setStandardDetails(this));
+        }
     }
 
     @Override
@@ -88,4 +99,3 @@ public class StandardDetails implements Serializable {
         return Objects.hash(getStandardId());
     }
 }
-

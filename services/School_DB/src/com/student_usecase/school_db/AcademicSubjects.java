@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +20,11 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -34,8 +38,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class AcademicSubjects implements Serializable {
 
     private String academicYear;
-    private Integer standardId;
     private Integer subjectId;
+    private Integer standardId;
     private String subjectTeacher;
     private Academics academics;
     private SubjectDetails subjectDetails;
@@ -52,16 +56,6 @@ public class AcademicSubjects implements Serializable {
     }
 
     @Id
-    @Column(name = "`STANDARD_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getStandardId() {
-        return this.standardId;
-    }
-
-    public void setStandardId(Integer standardId) {
-        this.standardId = standardId;
-    }
-
-    @Id
     @Column(name = "`SUBJECT_ID`", nullable = false, scale = 0, precision = 10)
     public Integer getSubjectId() {
         return this.subjectId;
@@ -69,6 +63,16 @@ public class AcademicSubjects implements Serializable {
 
     public void setSubjectId(Integer subjectId) {
         this.subjectId = subjectId;
+    }
+
+    @Id
+    @Column(name = "`STANDARD_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getStandardId() {
+        return this.standardId;
+    }
+
+    public void setStandardId(Integer standardId) {
+        this.standardId = standardId;
     }
 
     @Column(name = "`SUBJECT_TEACHER`", nullable = true, length = 255)
@@ -85,6 +89,7 @@ public class AcademicSubjects implements Serializable {
             @JoinColumn(name = "`ACADEMIC_YEAR`", referencedColumnName = "`ACADEMIC_YEAR`", insertable = false, updatable = false),
             @JoinColumn(name = "`STANDARD_ID`", referencedColumnName = "`STANDARD_ID`", insertable = false, updatable = false)},
         foreignKey = @ForeignKey(name = "`FK_ACADEMIC_SUBJECTS_TO_LUYp3`"))
+    @Fetch(FetchMode.JOIN)
     public Academics getAcademics() {
         return this.academics;
     }
@@ -100,6 +105,7 @@ public class AcademicSubjects implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "`SUBJECT_ID`", referencedColumnName = "`SUBJECT_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_ACADEMIC_SUBJECTS_TO_vYqYW`"))
+    @Fetch(FetchMode.JOIN)
     public SubjectDetails getSubjectDetails() {
         return this.subjectDetails;
     }
@@ -111,9 +117,9 @@ public class AcademicSubjects implements Serializable {
 
         this.subjectDetails = subjectDetails;
     }
-
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "academicSubjects")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "academicSubjects")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<AcademicTestSubjects> getAcademicTestSubjectses() {
         return this.academicTestSubjectses;
     }
@@ -128,15 +134,14 @@ public class AcademicSubjects implements Serializable {
         if (!(o instanceof AcademicSubjects)) return false;
         final AcademicSubjects academicSubjects = (AcademicSubjects) o;
         return Objects.equals(getAcademicYear(), academicSubjects.getAcademicYear()) &&
-                Objects.equals(getStandardId(), academicSubjects.getStandardId()) &&
-                Objects.equals(getSubjectId(), academicSubjects.getSubjectId());
+                Objects.equals(getSubjectId(), academicSubjects.getSubjectId()) &&
+                Objects.equals(getStandardId(), academicSubjects.getStandardId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getAcademicYear(),
-                getStandardId(),
-                getSubjectId());
+                getSubjectId(),
+                getStandardId());
     }
 }
-

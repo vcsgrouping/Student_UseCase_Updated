@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name = "`GRADE_DETAILS`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_GRADE_DETAILS_GRADE`", columnNames = {"`GRADE`"})})
+            @UniqueConstraint(name = "`UK_GRADE_DETAILS_GRADE`", columnNames = {"`GRADE`"})})
 public class GradeDetails implements Serializable {
 
     private Integer gradeId;
@@ -76,13 +79,21 @@ public class GradeDetails implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "gradeDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gradeDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<Results> getResultses() {
         return this.resultses;
     }
 
     public void setResultses(List<Results> resultses) {
         this.resultses = resultses;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(resultses != null) {
+            resultses.forEach(_results -> _results.setGradeDetails(this));
+        }
     }
 
     @Override
@@ -98,4 +109,3 @@ public class GradeDetails implements Serializable {
         return Objects.hash(getGradeId());
     }
 }
-

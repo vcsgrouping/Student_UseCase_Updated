@@ -10,17 +10,9 @@ import java.util.Objects;
 
 public class StudentAcademicsId implements Serializable {
 
-    private Integer studentId;
     private String academicYear;
     private Integer standardId;
-
-    public Integer getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+    private Integer studentId;
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -38,20 +30,28 @@ public class StudentAcademicsId implements Serializable {
         this.standardId = standardId;
     }
 
+    public Integer getStudentId() {
+        return this.studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof StudentAcademics)) return false;
         final StudentAcademics studentAcademics = (StudentAcademics) o;
-        return Objects.equals(getStudentId(), studentAcademics.getStudentId()) &&
-                Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
-                Objects.equals(getStandardId(), studentAcademics.getStandardId());
+        return Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
+                Objects.equals(getStandardId(), studentAcademics.getStandardId()) &&
+                Objects.equals(getStudentId(), studentAcademics.getStudentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getStudentId(),
-                getAcademicYear(),
-                getStandardId());
+        return Objects.hash(getAcademicYear(),
+                getStandardId(),
+                getStudentId());
     }
 }

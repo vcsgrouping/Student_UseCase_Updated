@@ -22,18 +22,8 @@ import javax.persistence.Table;
 @IdClass(StandardDetailsId.class)
 public class StandardDetails implements Serializable {
 
-    private String standardId;
     private String standardName;
-
-    @Id
-    @Column(name = "`STANDARD_ID`", nullable = false, length = 255)
-    public String getStandardId() {
-        return this.standardId;
-    }
-
-    public void setStandardId(String standardId) {
-        this.standardId = standardId;
-    }
+    private String standardId;
 
     @Id
     @Column(name = "`STANDARD_NAME`", nullable = false, length = 255)
@@ -45,6 +35,16 @@ public class StandardDetails implements Serializable {
         this.standardName = standardName;
     }
 
+    @Id
+    @Column(name = "`STANDARD_ID`", nullable = false, length = 255)
+    public String getStandardId() {
+        return this.standardId;
+    }
+
+    public void setStandardId(String standardId) {
+        this.standardId = standardId;
+    }
+
 
 
     @Override
@@ -52,14 +52,13 @@ public class StandardDetails implements Serializable {
         if (this == o) return true;
         if (!(o instanceof StandardDetails)) return false;
         final StandardDetails standardDetails = (StandardDetails) o;
-        return Objects.equals(getStandardId(), standardDetails.getStandardId()) &&
-                Objects.equals(getStandardName(), standardDetails.getStandardName());
+        return Objects.equals(getStandardName(), standardDetails.getStandardName()) &&
+                Objects.equals(getStandardId(), standardDetails.getStandardId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getStandardId(),
-                getStandardName());
+        return Objects.hash(getStandardName(),
+                getStandardId());
     }
 }
-

@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,8 +20,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -34,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  */
 @Entity
 @Table(name = "`STUDENT_DETAILS`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_STUDENT_DETAILS_STUDENQs2b`", columnNames = {"`STUDENT_IDENTIFICATION_ID`"})})
+            @UniqueConstraint(name = "`UK_STUDENT_DETAILS_STUDENQs2b`", columnNames = {"`STUDENT_IDENTIFICATION_ID`"})})
 public class StudentDetails implements Serializable {
 
     private Integer studentId;
@@ -156,6 +161,7 @@ public class StudentDetails implements Serializable {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "`STUDENT_IDENTIFICATION_ID`", referencedColumnName = "`IDENTIFICATION_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_STUDENT_DETAILS_TO_STMYTtN`"))
+    @Fetch(FetchMode.JOIN)
     public StudentIdentification getStudentIdentification() {
         return this.studentIdentification;
     }
@@ -167,9 +173,9 @@ public class StudentDetails implements Serializable {
 
         this.studentIdentification = studentIdentification;
     }
-
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "studentDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<Results> getResultses() {
         return this.resultses;
     }
@@ -179,13 +185,24 @@ public class StudentDetails implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "studentDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "studentDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<StudentAcademics> getStudentAcademicses() {
         return this.studentAcademicses;
     }
 
     public void setStudentAcademicses(List<StudentAcademics> studentAcademicses) {
         this.studentAcademicses = studentAcademicses;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(resultses != null) {
+            resultses.forEach(_results -> _results.setStudentDetails(this));
+        }
+        if(studentAcademicses != null) {
+            studentAcademicses.forEach(_studentAcademics -> _studentAcademics.setStudentDetails(this));
+        }
     }
 
     @Override
@@ -201,4 +218,3 @@ public class StudentDetails implements Serializable {
         return Objects.hash(getStudentId());
     }
 }
-

@@ -11,18 +11,10 @@ import java.util.Objects;
 
 public class StudentAcademicsId implements Serializable {
 
-    private Date academicYear;
     private Integer rollnumber;
+    private Date academicYear;
     private String standard;
     private Integer studentId;
-
-    public Date getAcademicYear() {
-        return this.academicYear;
-    }
-
-    public void setAcademicYear(Date academicYear) {
-        this.academicYear = academicYear;
-    }
 
     public Integer getRollnumber() {
         return this.rollnumber;
@@ -30,6 +22,14 @@ public class StudentAcademicsId implements Serializable {
 
     public void setRollnumber(Integer rollnumber) {
         this.rollnumber = rollnumber;
+    }
+
+    public Date getAcademicYear() {
+        return this.academicYear;
+    }
+
+    public void setAcademicYear(Date academicYear) {
+        this.academicYear = academicYear;
     }
 
     public String getStandard() {
@@ -53,16 +53,16 @@ public class StudentAcademicsId implements Serializable {
         if (this == o) return true;
         if (!(o instanceof StudentAcademics)) return false;
         final StudentAcademics studentAcademics = (StudentAcademics) o;
-        return Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
-                Objects.equals(getRollnumber(), studentAcademics.getRollnumber()) &&
+        return Objects.equals(getRollnumber(), studentAcademics.getRollnumber()) &&
+                Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
                 Objects.equals(getStandard(), studentAcademics.getStandard()) &&
                 Objects.equals(getStudentId(), studentAcademics.getStudentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getRollnumber(),
+        return Objects.hash(getRollnumber(),
+                getAcademicYear(),
                 getStandard(),
                 getStudentId());
     }

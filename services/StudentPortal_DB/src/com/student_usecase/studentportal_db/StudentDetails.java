@@ -24,13 +24,33 @@ import javax.persistence.Table;
 @IdClass(StudentDetailsId.class)
 public class StudentDetails implements Serializable {
 
+    private Date joiningDate;
+    private Date dateofbirth;
     private String address;
     private BigInteger contactNumber;
-    private Date dateofbirth;
     private String fatherName;
-    private Date joiningDate;
     private Integer studentId;
     private String studentName;
+
+    @Id
+    @Column(name = "`JOINING_DATE`", nullable = false)
+    public Date getJoiningDate() {
+        return this.joiningDate;
+    }
+
+    public void setJoiningDate(Date joiningDate) {
+        this.joiningDate = joiningDate;
+    }
+
+    @Id
+    @Column(name = "`DATEOFBIRTH`", nullable = false)
+    public Date getDateofbirth() {
+        return this.dateofbirth;
+    }
+
+    public void setDateofbirth(Date dateofbirth) {
+        this.dateofbirth = dateofbirth;
+    }
 
     @Id
     @Column(name = "`ADDRESS`", nullable = false, length = 255)
@@ -53,16 +73,6 @@ public class StudentDetails implements Serializable {
     }
 
     @Id
-    @Column(name = "`DATEOFBIRTH`", nullable = false)
-    public Date getDateofbirth() {
-        return this.dateofbirth;
-    }
-
-    public void setDateofbirth(Date dateofbirth) {
-        this.dateofbirth = dateofbirth;
-    }
-
-    @Id
     @Column(name = "`FATHER_NAME`", nullable = false, length = 255)
     public String getFatherName() {
         return this.fatherName;
@@ -70,16 +80,6 @@ public class StudentDetails implements Serializable {
 
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
-    }
-
-    @Id
-    @Column(name = "`JOINING_DATE`", nullable = false)
-    public Date getJoiningDate() {
-        return this.joiningDate;
-    }
-
-    public void setJoiningDate(Date joiningDate) {
-        this.joiningDate = joiningDate;
     }
 
     @Id
@@ -109,24 +109,23 @@ public class StudentDetails implements Serializable {
         if (this == o) return true;
         if (!(o instanceof StudentDetails)) return false;
         final StudentDetails studentDetails = (StudentDetails) o;
-        return Objects.equals(getAddress(), studentDetails.getAddress()) &&
-                Objects.equals(getContactNumber(), studentDetails.getContactNumber()) &&
+        return Objects.equals(getJoiningDate(), studentDetails.getJoiningDate()) &&
                 Objects.equals(getDateofbirth(), studentDetails.getDateofbirth()) &&
+                Objects.equals(getAddress(), studentDetails.getAddress()) &&
+                Objects.equals(getContactNumber(), studentDetails.getContactNumber()) &&
                 Objects.equals(getFatherName(), studentDetails.getFatherName()) &&
-                Objects.equals(getJoiningDate(), studentDetails.getJoiningDate()) &&
                 Objects.equals(getStudentId(), studentDetails.getStudentId()) &&
                 Objects.equals(getStudentName(), studentDetails.getStudentName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAddress(),
-                getContactNumber(),
+        return Objects.hash(getJoiningDate(),
                 getDateofbirth(),
+                getAddress(),
+                getContactNumber(),
                 getFatherName(),
-                getJoiningDate(),
                 getStudentId(),
                 getStudentName());
     }
 }
-

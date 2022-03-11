@@ -23,11 +23,21 @@ import javax.persistence.Table;
 @IdClass(ResultsId.class)
 public class Results implements Serializable {
 
+    private Integer rollnumber;
     private Date academicYear;
     private String grade;
     private Short marks;
-    private Integer rollnumber;
     private String standard;
+
+    @Id
+    @Column(name = "`ROLLNUMBER`", nullable = false, scale = 0, precision = 10)
+    public Integer getRollnumber() {
+        return this.rollnumber;
+    }
+
+    public void setRollnumber(Integer rollnumber) {
+        this.rollnumber = rollnumber;
+    }
 
     @Id
     @Column(name = "`ACADEMIC_YEAR`", nullable = false)
@@ -60,16 +70,6 @@ public class Results implements Serializable {
     }
 
     @Id
-    @Column(name = "`ROLLNUMBER`", nullable = false, scale = 0, precision = 10)
-    public Integer getRollnumber() {
-        return this.rollnumber;
-    }
-
-    public void setRollnumber(Integer rollnumber) {
-        this.rollnumber = rollnumber;
-    }
-
-    @Id
     @Column(name = "`STANDARD`", nullable = false, length = 255)
     public String getStandard() {
         return this.standard;
@@ -86,20 +86,19 @@ public class Results implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Results)) return false;
         final Results results = (Results) o;
-        return Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
+        return Objects.equals(getRollnumber(), results.getRollnumber()) &&
+                Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
                 Objects.equals(getGrade(), results.getGrade()) &&
                 Objects.equals(getMarks(), results.getMarks()) &&
-                Objects.equals(getRollnumber(), results.getRollnumber()) &&
                 Objects.equals(getStandard(), results.getStandard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
+        return Objects.hash(getRollnumber(),
+                getAcademicYear(),
                 getGrade(),
                 getMarks(),
-                getRollnumber(),
                 getStandard());
     }
 }
-

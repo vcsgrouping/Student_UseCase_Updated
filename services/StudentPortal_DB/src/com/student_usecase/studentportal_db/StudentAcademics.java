@@ -23,20 +23,10 @@ import javax.persistence.Table;
 @IdClass(StudentAcademicsId.class)
 public class StudentAcademics implements Serializable {
 
-    private Date academicYear;
     private Integer rollnumber;
+    private Date academicYear;
     private String standard;
     private Integer studentId;
-
-    @Id
-    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
-    public Date getAcademicYear() {
-        return this.academicYear;
-    }
-
-    public void setAcademicYear(Date academicYear) {
-        this.academicYear = academicYear;
-    }
 
     @Id
     @Column(name = "`ROLLNUMBER`", nullable = false, scale = 0, precision = 10)
@@ -46,6 +36,16 @@ public class StudentAcademics implements Serializable {
 
     public void setRollnumber(Integer rollnumber) {
         this.rollnumber = rollnumber;
+    }
+
+    @Id
+    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
+    public Date getAcademicYear() {
+        return this.academicYear;
+    }
+
+    public void setAcademicYear(Date academicYear) {
+        this.academicYear = academicYear;
     }
 
     @Id
@@ -75,18 +75,17 @@ public class StudentAcademics implements Serializable {
         if (this == o) return true;
         if (!(o instanceof StudentAcademics)) return false;
         final StudentAcademics studentAcademics = (StudentAcademics) o;
-        return Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
-                Objects.equals(getRollnumber(), studentAcademics.getRollnumber()) &&
+        return Objects.equals(getRollnumber(), studentAcademics.getRollnumber()) &&
+                Objects.equals(getAcademicYear(), studentAcademics.getAcademicYear()) &&
                 Objects.equals(getStandard(), studentAcademics.getStandard()) &&
                 Objects.equals(getStudentId(), studentAcademics.getStudentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getRollnumber(),
+        return Objects.hash(getRollnumber(),
+                getAcademicYear(),
                 getStandard(),
                 getStudentId());
     }
 }
-

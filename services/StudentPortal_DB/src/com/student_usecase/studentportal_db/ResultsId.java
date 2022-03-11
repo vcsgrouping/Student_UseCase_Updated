@@ -11,11 +11,19 @@ import java.util.Objects;
 
 public class ResultsId implements Serializable {
 
+    private Integer rollnumber;
     private Date academicYear;
     private String grade;
     private Short marks;
-    private Integer rollnumber;
     private String standard;
+
+    public Integer getRollnumber() {
+        return this.rollnumber;
+    }
+
+    public void setRollnumber(Integer rollnumber) {
+        this.rollnumber = rollnumber;
+    }
 
     public Date getAcademicYear() {
         return this.academicYear;
@@ -41,14 +49,6 @@ public class ResultsId implements Serializable {
         this.marks = marks;
     }
 
-    public Integer getRollnumber() {
-        return this.rollnumber;
-    }
-
-    public void setRollnumber(Integer rollnumber) {
-        this.rollnumber = rollnumber;
-    }
-
     public String getStandard() {
         return this.standard;
     }
@@ -62,19 +62,19 @@ public class ResultsId implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Results)) return false;
         final Results results = (Results) o;
-        return Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
+        return Objects.equals(getRollnumber(), results.getRollnumber()) &&
+                Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
                 Objects.equals(getGrade(), results.getGrade()) &&
                 Objects.equals(getMarks(), results.getMarks()) &&
-                Objects.equals(getRollnumber(), results.getRollnumber()) &&
                 Objects.equals(getStandard(), results.getStandard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
+        return Objects.hash(getRollnumber(),
+                getAcademicYear(),
                 getGrade(),
                 getMarks(),
-                getRollnumber(),
                 getStandard());
     }
 }

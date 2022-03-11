@@ -11,26 +11,10 @@ import java.util.Objects;
 
 public class AcademicSubjectsId implements Serializable {
 
-    private Date academicYear;
-    private String standard;
     private String subjectName;
+    private Date academicYear;
     private String subjectTeacher;
-
-    public Date getAcademicYear() {
-        return this.academicYear;
-    }
-
-    public void setAcademicYear(Date academicYear) {
-        this.academicYear = academicYear;
-    }
-
-    public String getStandard() {
-        return this.standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard;
-    }
+    private String standard;
 
     public String getSubjectName() {
         return this.subjectName;
@@ -38,6 +22,14 @@ public class AcademicSubjectsId implements Serializable {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public Date getAcademicYear() {
+        return this.academicYear;
+    }
+
+    public void setAcademicYear(Date academicYear) {
+        this.academicYear = academicYear;
     }
 
     public String getSubjectTeacher() {
@@ -48,22 +40,30 @@ public class AcademicSubjectsId implements Serializable {
         this.subjectTeacher = subjectTeacher;
     }
 
+    public String getStandard() {
+        return this.standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AcademicSubjects)) return false;
         final AcademicSubjects academicSubjects = (AcademicSubjects) o;
-        return Objects.equals(getAcademicYear(), academicSubjects.getAcademicYear()) &&
-                Objects.equals(getStandard(), academicSubjects.getStandard()) &&
-                Objects.equals(getSubjectName(), academicSubjects.getSubjectName()) &&
-                Objects.equals(getSubjectTeacher(), academicSubjects.getSubjectTeacher());
+        return Objects.equals(getSubjectName(), academicSubjects.getSubjectName()) &&
+                Objects.equals(getAcademicYear(), academicSubjects.getAcademicYear()) &&
+                Objects.equals(getSubjectTeacher(), academicSubjects.getSubjectTeacher()) &&
+                Objects.equals(getStandard(), academicSubjects.getStandard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getStandard(),
-                getSubjectName(),
-                getSubjectTeacher());
+        return Objects.hash(getSubjectName(),
+                getAcademicYear(),
+                getSubjectTeacher(),
+                getStandard());
     }
 }

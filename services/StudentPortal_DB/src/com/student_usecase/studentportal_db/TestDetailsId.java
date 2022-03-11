@@ -10,16 +10,8 @@ import java.util.Objects;
 
 public class TestDetailsId implements Serializable {
 
-    private Integer testId;
     private String testName;
-
-    public Integer getTestId() {
-        return this.testId;
-    }
-
-    public void setTestId(Integer testId) {
-        this.testId = testId;
-    }
+    private Integer testId;
 
     public String getTestName() {
         return this.testName;
@@ -29,18 +21,26 @@ public class TestDetailsId implements Serializable {
         this.testName = testName;
     }
 
+    public Integer getTestId() {
+        return this.testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TestDetails)) return false;
         final TestDetails testDetails = (TestDetails) o;
-        return Objects.equals(getTestId(), testDetails.getTestId()) &&
-                Objects.equals(getTestName(), testDetails.getTestName());
+        return Objects.equals(getTestName(), testDetails.getTestName()) &&
+                Objects.equals(getTestId(), testDetails.getTestId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTestId(),
-                getTestName());
+        return Objects.hash(getTestName(),
+                getTestId());
     }
 }

@@ -10,26 +10,10 @@ import java.util.Objects;
 
 public class ResultsId implements Serializable {
 
-    private Integer testConductedId;
-    private Integer studentId;
     private String academicYear;
+    private Integer testConductedId;
     private Integer standardId;
-
-    public Integer getTestConductedId() {
-        return this.testConductedId;
-    }
-
-    public void setTestConductedId(Integer testConductedId) {
-        this.testConductedId = testConductedId;
-    }
-
-    public Integer getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+    private Integer studentId;
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -37,6 +21,14 @@ public class ResultsId implements Serializable {
 
     public void setAcademicYear(String academicYear) {
         this.academicYear = academicYear;
+    }
+
+    public Integer getTestConductedId() {
+        return this.testConductedId;
+    }
+
+    public void setTestConductedId(Integer testConductedId) {
+        this.testConductedId = testConductedId;
     }
 
     public Integer getStandardId() {
@@ -47,22 +39,30 @@ public class ResultsId implements Serializable {
         this.standardId = standardId;
     }
 
+    public Integer getStudentId() {
+        return this.studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Results)) return false;
         final Results results = (Results) o;
-        return Objects.equals(getTestConductedId(), results.getTestConductedId()) &&
-                Objects.equals(getStudentId(), results.getStudentId()) &&
-                Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
-                Objects.equals(getStandardId(), results.getStandardId());
+        return Objects.equals(getAcademicYear(), results.getAcademicYear()) &&
+                Objects.equals(getTestConductedId(), results.getTestConductedId()) &&
+                Objects.equals(getStandardId(), results.getStandardId()) &&
+                Objects.equals(getStudentId(), results.getStudentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTestConductedId(),
-                getStudentId(),
-                getAcademicYear(),
-                getStandardId());
+        return Objects.hash(getAcademicYear(),
+                getTestConductedId(),
+                getStandardId(),
+                getStudentId());
     }
 }

@@ -115,4 +115,3 @@ public class ViewResults implements Serializable {
                 getTestId());
     }
 }
-

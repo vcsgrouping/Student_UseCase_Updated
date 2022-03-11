@@ -22,18 +22,8 @@ import javax.persistence.Table;
 @IdClass(TestDetailsId.class)
 public class TestDetails implements Serializable {
 
-    private Integer testId;
     private String testName;
-
-    @Id
-    @Column(name = "`TEST_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getTestId() {
-        return this.testId;
-    }
-
-    public void setTestId(Integer testId) {
-        this.testId = testId;
-    }
+    private Integer testId;
 
     @Id
     @Column(name = "`TEST_NAME`", nullable = false, length = 255)
@@ -45,6 +35,16 @@ public class TestDetails implements Serializable {
         this.testName = testName;
     }
 
+    @Id
+    @Column(name = "`TEST_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getTestId() {
+        return this.testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
+
 
 
     @Override
@@ -52,14 +52,13 @@ public class TestDetails implements Serializable {
         if (this == o) return true;
         if (!(o instanceof TestDetails)) return false;
         final TestDetails testDetails = (TestDetails) o;
-        return Objects.equals(getTestId(), testDetails.getTestId()) &&
-                Objects.equals(getTestName(), testDetails.getTestName());
+        return Objects.equals(getTestName(), testDetails.getTestName()) &&
+                Objects.equals(getTestId(), testDetails.getTestId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTestId(),
-                getTestName());
+        return Objects.hash(getTestName(),
+                getTestId());
     }
 }
-

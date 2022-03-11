@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +21,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -154,10 +159,11 @@ public class EmployeeDetails implements Serializable {
         this.managerId = managerId;
     }
 
-    // ignoring self relation properties to avoid circular loops.
+    // ignoring self relation properties to avoid circular loops & unwanted fields from the related entity.
     @JsonIgnoreProperties({"employeeDetailsByManagerId", "employeeDetailsesForManagerId"})
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "`MANAGER_ID`", referencedColumnName = "`EMP_ID`", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "`FK_EMPLOYEE_DETAILS_TO_EMFB1X`"))
+    @Fetch(FetchMode.JOIN)
     public EmployeeDetails getEmployeeDetailsByManagerId() {
         return this.employeeDetailsByManagerId;
     }
@@ -169,11 +175,11 @@ public class EmployeeDetails implements Serializable {
 
         this.employeeDetailsByManagerId = employeeDetailsByManagerId;
     }
-
-    // ignoring self relation properties to avoid circular loops.
+    // ignoring self relation properties to avoid circular loops & unwanted fields from the related entity.
     @JsonIgnoreProperties({"employeeDetailsByManagerId", "employeeDetailsesForManagerId"})
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "employeeDetailsByManagerId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employeeDetailsByManagerId")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<EmployeeDetails> getEmployeeDetailsesForManagerId() {
         return this.employeeDetailsesForManagerId;
     }
@@ -182,13 +188,24 @@ public class EmployeeDetails implements Serializable {
         this.employeeDetailsesForManagerId = employeeDetailsesForManagerId;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "employeeDetails")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "employeeDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public UserLogin getUserLogin() {
         return this.userLogin;
     }
 
     public void setUserLogin(UserLogin userLogin) {
         this.userLogin = userLogin;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(employeeDetailsesForManagerId != null) {
+            employeeDetailsesForManagerId.forEach(_employeeDetails -> _employeeDetails.setEmployeeDetailsByManagerId(this));
+        }
+        if(userLogin != null) {
+            userLogin.setEmployeeDetails(this);
+        }
     }
 
     @Override
@@ -204,4 +221,3 @@ public class EmployeeDetails implements Serializable {
         return Objects.hash(getEmpId());
     }
 }
-

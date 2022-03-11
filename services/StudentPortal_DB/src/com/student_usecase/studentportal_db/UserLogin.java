@@ -76,4 +76,3 @@ public class UserLogin implements Serializable {
         return Objects.hash(getUserId());
     }
 }
-

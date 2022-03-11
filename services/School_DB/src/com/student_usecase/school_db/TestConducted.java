@@ -10,7 +10,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,6 +21,11 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -35,8 +39,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class TestConducted implements Serializable {
 
     private String academicYear;
-    private Integer standardId;
     private Integer testConductedId;
+    private Integer standardId;
     private int subjectId;
     private int testId;
     private Date testConductedOn;
@@ -54,16 +58,6 @@ public class TestConducted implements Serializable {
     }
 
     @Id
-    @Column(name = "`STANDARD_ID`", nullable = false, scale = 0, precision = 10)
-    public Integer getStandardId() {
-        return this.standardId;
-    }
-
-    public void setStandardId(Integer standardId) {
-        this.standardId = standardId;
-    }
-
-    @Id
     @Column(name = "`TEST_CONDUCTED_ID`", nullable = false, scale = 0, precision = 10)
     public Integer getTestConductedId() {
         return this.testConductedId;
@@ -71,6 +65,16 @@ public class TestConducted implements Serializable {
 
     public void setTestConductedId(Integer testConductedId) {
         this.testConductedId = testConductedId;
+    }
+
+    @Id
+    @Column(name = "`STANDARD_ID`", nullable = false, scale = 0, precision = 10)
+    public Integer getStandardId() {
+        return this.standardId;
+    }
+
+    public void setStandardId(Integer standardId) {
+        this.standardId = standardId;
     }
 
     @Column(name = "`SUBJECT_ID`", nullable = false, scale = 0, precision = 10)
@@ -107,6 +111,7 @@ public class TestConducted implements Serializable {
             @JoinColumn(name = "`TEST_ID`", referencedColumnName = "`TEST_ID`", insertable = false, updatable = false),
             @JoinColumn(name = "`SUBJECT_ID`", referencedColumnName = "`SUBJECT_ID`", insertable = false, updatable = false)},
         foreignKey = @ForeignKey(name = "`FK_TEST_CONDUCTED_TO_ACAsSyPO`"))
+    @Fetch(FetchMode.JOIN)
     public AcademicTestSubjects getAcademicTestSubjects() {
         return this.academicTestSubjects;
     }
@@ -121,9 +126,9 @@ public class TestConducted implements Serializable {
 
         this.academicTestSubjects = academicTestSubjects;
     }
-
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "testConducted")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testConducted")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<Results> getResultses() {
         return this.resultses;
     }
@@ -138,15 +143,14 @@ public class TestConducted implements Serializable {
         if (!(o instanceof TestConducted)) return false;
         final TestConducted testConducted = (TestConducted) o;
         return Objects.equals(getAcademicYear(), testConducted.getAcademicYear()) &&
-                Objects.equals(getStandardId(), testConducted.getStandardId()) &&
-                Objects.equals(getTestConductedId(), testConducted.getTestConductedId());
+                Objects.equals(getTestConductedId(), testConducted.getTestConductedId()) &&
+                Objects.equals(getStandardId(), testConducted.getStandardId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getAcademicYear(),
-                getStandardId(),
-                getTestConductedId());
+                getTestConductedId(),
+                getStandardId());
     }
 }
-

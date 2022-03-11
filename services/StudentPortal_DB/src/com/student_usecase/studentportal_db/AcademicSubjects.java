@@ -23,30 +23,10 @@ import javax.persistence.Table;
 @IdClass(AcademicSubjectsId.class)
 public class AcademicSubjects implements Serializable {
 
-    private Date academicYear;
-    private String standard;
     private String subjectName;
+    private Date academicYear;
     private String subjectTeacher;
-
-    @Id
-    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
-    public Date getAcademicYear() {
-        return this.academicYear;
-    }
-
-    public void setAcademicYear(Date academicYear) {
-        this.academicYear = academicYear;
-    }
-
-    @Id
-    @Column(name = "`STANDARD`", nullable = false, length = 255)
-    public String getStandard() {
-        return this.standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard;
-    }
+    private String standard;
 
     @Id
     @Column(name = "`SUBJECT_NAME`", nullable = false, length = 255)
@@ -59,6 +39,16 @@ public class AcademicSubjects implements Serializable {
     }
 
     @Id
+    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
+    public Date getAcademicYear() {
+        return this.academicYear;
+    }
+
+    public void setAcademicYear(Date academicYear) {
+        this.academicYear = academicYear;
+    }
+
+    @Id
     @Column(name = "`SUBJECT_TEACHER`", nullable = false, length = 255)
     public String getSubjectTeacher() {
         return this.subjectTeacher;
@@ -68,6 +58,16 @@ public class AcademicSubjects implements Serializable {
         this.subjectTeacher = subjectTeacher;
     }
 
+    @Id
+    @Column(name = "`STANDARD`", nullable = false, length = 255)
+    public String getStandard() {
+        return this.standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
 
 
     @Override
@@ -75,18 +75,17 @@ public class AcademicSubjects implements Serializable {
         if (this == o) return true;
         if (!(o instanceof AcademicSubjects)) return false;
         final AcademicSubjects academicSubjects = (AcademicSubjects) o;
-        return Objects.equals(getAcademicYear(), academicSubjects.getAcademicYear()) &&
-                Objects.equals(getStandard(), academicSubjects.getStandard()) &&
-                Objects.equals(getSubjectName(), academicSubjects.getSubjectName()) &&
-                Objects.equals(getSubjectTeacher(), academicSubjects.getSubjectTeacher());
+        return Objects.equals(getSubjectName(), academicSubjects.getSubjectName()) &&
+                Objects.equals(getAcademicYear(), academicSubjects.getAcademicYear()) &&
+                Objects.equals(getSubjectTeacher(), academicSubjects.getSubjectTeacher()) &&
+                Objects.equals(getStandard(), academicSubjects.getStandard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getStandard(),
-                getSubjectName(),
-                getSubjectTeacher());
+        return Objects.hash(getSubjectName(),
+                getAcademicYear(),
+                getSubjectTeacher(),
+                getStandard());
     }
 }
-

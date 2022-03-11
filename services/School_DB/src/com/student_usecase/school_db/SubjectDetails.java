@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name = "`SUBJECT_DETAILS`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_SUBJECT_DETAILS_SUBJEuF03L`", columnNames = {"`SUBJECT_NAME`"})})
+            @UniqueConstraint(name = "`UK_SUBJECT_DETAILS_SUBJEuF03L`", columnNames = {"`SUBJECT_NAME`"})})
 public class SubjectDetails implements Serializable {
 
     private Integer subjectId;
@@ -56,13 +59,21 @@ public class SubjectDetails implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "subjectDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "subjectDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<AcademicSubjects> getAcademicSubjectses() {
         return this.academicSubjectses;
     }
 
     public void setAcademicSubjectses(List<AcademicSubjects> academicSubjectses) {
         this.academicSubjectses = academicSubjectses;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(academicSubjectses != null) {
+            academicSubjectses.forEach(_academicSubjects -> _academicSubjects.setSubjectDetails(this));
+        }
     }
 
     @Override
@@ -78,4 +89,3 @@ public class SubjectDetails implements Serializable {
         return Objects.hash(getSubjectId());
     }
 }
-

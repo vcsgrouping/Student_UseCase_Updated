@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity
 @Table(name = "`TEST_DETAILS`", uniqueConstraints = {
-        @UniqueConstraint(name = "`UK_TEST_DETAILS_TEST_NAME`", columnNames = {"`TEST_NAME`"})})
+            @UniqueConstraint(name = "`UK_TEST_DETAILS_TEST_NAME`", columnNames = {"`TEST_NAME`"})})
 public class TestDetails implements Serializable {
 
     private Integer testId;
@@ -56,13 +59,21 @@ public class TestDetails implements Serializable {
     }
 
     @JsonInclude(Include.NON_EMPTY)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "testDetails")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "testDetails")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.REMOVE})
     public List<AcademicTestSubjects> getAcademicTestSubjectses() {
         return this.academicTestSubjectses;
     }
 
     public void setAcademicTestSubjectses(List<AcademicTestSubjects> academicTestSubjectses) {
         this.academicTestSubjectses = academicTestSubjectses;
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        if(academicTestSubjectses != null) {
+            academicTestSubjectses.forEach(_academicTestSubjects -> _academicTestSubjects.setTestDetails(this));
+        }
     }
 
     @Override
@@ -78,4 +89,3 @@ public class TestDetails implements Serializable {
         return Objects.hash(getTestId());
     }
 }
-

@@ -23,20 +23,10 @@ import javax.persistence.Table;
 @IdClass(AcademicsId.class)
 public class Academics implements Serializable {
 
-    private Date academicYear;
     private String classroom;
+    private Date academicYear;
     private String classteacher;
     private String standard;
-
-    @Id
-    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
-    public Date getAcademicYear() {
-        return this.academicYear;
-    }
-
-    public void setAcademicYear(Date academicYear) {
-        this.academicYear = academicYear;
-    }
 
     @Id
     @Column(name = "`CLASSROOM`", nullable = false, length = 255)
@@ -46,6 +36,16 @@ public class Academics implements Serializable {
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
+    }
+
+    @Id
+    @Column(name = "`ACADEMIC_YEAR`", nullable = false)
+    public Date getAcademicYear() {
+        return this.academicYear;
+    }
+
+    public void setAcademicYear(Date academicYear) {
+        this.academicYear = academicYear;
     }
 
     @Id
@@ -75,18 +75,17 @@ public class Academics implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Academics)) return false;
         final Academics academics = (Academics) o;
-        return Objects.equals(getAcademicYear(), academics.getAcademicYear()) &&
-                Objects.equals(getClassroom(), academics.getClassroom()) &&
+        return Objects.equals(getClassroom(), academics.getClassroom()) &&
+                Objects.equals(getAcademicYear(), academics.getAcademicYear()) &&
                 Objects.equals(getClassteacher(), academics.getClassteacher()) &&
                 Objects.equals(getStandard(), academics.getStandard());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAcademicYear(),
-                getClassroom(),
+        return Objects.hash(getClassroom(),
+                getAcademicYear(),
                 getClassteacher(),
                 getStandard());
     }
 }
-

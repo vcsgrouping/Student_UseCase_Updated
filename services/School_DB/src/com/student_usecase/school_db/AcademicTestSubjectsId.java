@@ -11,9 +11,9 @@ import java.util.Objects;
 public class AcademicTestSubjectsId implements Serializable {
 
     private String academicYear;
-    private Integer standardId;
-    private Integer testId;
     private Integer subjectId;
+    private Integer testId;
+    private Integer standardId;
 
     public String getAcademicYear() {
         return this.academicYear;
@@ -21,22 +21,6 @@ public class AcademicTestSubjectsId implements Serializable {
 
     public void setAcademicYear(String academicYear) {
         this.academicYear = academicYear;
-    }
-
-    public Integer getStandardId() {
-        return this.standardId;
-    }
-
-    public void setStandardId(Integer standardId) {
-        this.standardId = standardId;
-    }
-
-    public Integer getTestId() {
-        return this.testId;
-    }
-
-    public void setTestId(Integer testId) {
-        this.testId = testId;
     }
 
     public Integer getSubjectId() {
@@ -47,22 +31,38 @@ public class AcademicTestSubjectsId implements Serializable {
         this.subjectId = subjectId;
     }
 
+    public Integer getTestId() {
+        return this.testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
+
+    public Integer getStandardId() {
+        return this.standardId;
+    }
+
+    public void setStandardId(Integer standardId) {
+        this.standardId = standardId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AcademicTestSubjects)) return false;
         final AcademicTestSubjects academicTestSubjects = (AcademicTestSubjects) o;
         return Objects.equals(getAcademicYear(), academicTestSubjects.getAcademicYear()) &&
-                Objects.equals(getStandardId(), academicTestSubjects.getStandardId()) &&
+                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId()) &&
                 Objects.equals(getTestId(), academicTestSubjects.getTestId()) &&
-                Objects.equals(getSubjectId(), academicTestSubjects.getSubjectId());
+                Objects.equals(getStandardId(), academicTestSubjects.getStandardId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getAcademicYear(),
-                getStandardId(),
+                getSubjectId(),
                 getTestId(),
-                getSubjectId());
+                getStandardId());
     }
 }

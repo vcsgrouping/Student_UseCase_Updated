@@ -1,0 +1,7 @@
+{
+  "id" : "StudentResults",
+  "type" : "JavaService",
+  "packageNames" : [ "com.student_usecase.studentresults" ],
+  "serviceClassNames" : [ "com.student_usecase.studentresults.StudentResults" ],
+  "title" : "StudentResults"
+}

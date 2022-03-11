@@ -1,40 +1,21 @@
-Application.$controller("xyzPageController", ["$scope", function ($scope) {
-    "use strict";
+/* perform any action on widgets/variables within this block */
 
-    /* perform any action on widgets/variables within this block */
-    $scope.onPageReady = function () {
-        /*
-         * variables can be accessed through '$scope.Variables' property here
-         * e.g. to get dataSet in a staticVariable named 'loggedInUser' use following script
-         * $scope.Variables.loggedInUser.getData()
-         *
-         * widgets can be accessed through '$scope.Widgets' property here
-         * e.g. to get value of text widget named 'username' use following script
-         * '$scope.Widgets.username.datavalue'
-         */
-    };
+Page.onReady = function () {
+    /*
+     * variables can be accessed through 'Page.Variables' property here
+     * e.g. to get dataSet in a staticVariable named 'loggedInUser' use following script
+     * Page.Variables.loggedInUser.getData()
+     *
+     * widgets can be accessed through 'Page.Widgets' property here
+     * e.g. to get value of text widget named 'username' use following script
+     * 'Page.Widgets.username.datavalue'
+     */
 
-}]);
+};
 
+Page.grid1_studentNameOnBlur = function ($event, widget, rowData) {};
 
-Application.$controller("grid1Controller", ["$scope",
-	function($scope) {
-		"use strict";
-		$scope.ctrlScope = $scope;
-	
-        $scope.studentNameOnBlur = function ($event, $isolateScope, rowData) { 
+Page.grid1_studentIdOnBlur = function ($event, widget, rowData) {};
 
-        };
- 
-    
-        $scope.studentIdOnBlur = function ($event, $isolateScope, rowData) { 
+Page.grid1_addressOnBlur = function ($event, widget, rowData) {};
 
-        };
- 
-    
-        $scope.addressOnBlur = function ($event, $isolateScope, rowData) { 
-
-        };
- 
-    }
-]);

@@ -71,6 +71,10 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicYear"
+    "package" : "com.student_usecase.school_db.AcademicYear",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

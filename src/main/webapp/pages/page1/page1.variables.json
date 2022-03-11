@@ -160,22 +160,18 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "liveVariable1" : {
     "_id" : "wm-liveVariable1-wm.LiveVariable-1477547324673",
     "name" : "liveVariable1",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "2015-2016",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : 3,
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "StudentAcademics",
@@ -438,7 +434,23 @@
       "package" : "com.student_usecase.school_db.StudentAcademics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.StudentAcademics"
+    "package" : "com.student_usecase.school_db.StudentAcademics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "2015-2016",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : 3,
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   },
   "School_DBResultsData2" : {
     "_id" : "wm-School_DBResultsData2-wm.LiveVariable-1476439766064",
@@ -785,7 +797,11 @@
       "watchOn" : "School_DBStudentDetailsData",
       "package" : "com.student_usecase.school_db.Results"
     } ],
-    "package" : "com.student_usecase.school_db.Results"
+    "package" : "com.student_usecase.school_db.Results",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBTestConductedData2" : {
     "_id" : "wm-School_DBTestConductedData2-wm.LiveVariable-1476439904819",
@@ -912,6 +928,10 @@
       "package" : "com.student_usecase.school_db.TestConducted"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.TestConducted"
+    "package" : "com.student_usecase.school_db.TestConducted",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

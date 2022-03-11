@@ -70,6 +70,10 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.StandardDetails"
+    "package" : "com.student_usecase.school_db.StandardDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

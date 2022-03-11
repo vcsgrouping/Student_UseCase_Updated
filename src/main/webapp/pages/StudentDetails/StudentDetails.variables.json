@@ -96,18 +96,18 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.studentportal_db.GradeDetails"
+    "package" : "com.student_usecase.studentportal_db.GradeDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "LV_GradesByMinValue" : {
     "_id" : "wm-LV_GradesByMinValue-wm.LiveVariable-1474895508622",
     "name" : "LV_GradesByMinValue",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "minValue",
-      "value" : 70,
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "GradeDetails",
@@ -198,7 +198,17 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.studentportal_db.GradeDetails"
+    "package" : "com.student_usecase.studentportal_db.GradeDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "minValue",
+        "value" : 70,
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   },
   "LV_Results" : {
     "_id" : "wm-LV_Results-wm.LiveVariable-1474629731022",
@@ -545,7 +555,11 @@
       "package" : "com.student_usecase.school_db.Results"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Results"
+    "package" : "com.student_usecase.school_db.Results",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBResultsData" : {
     "_id" : "wm-ResultsData-wm.LiveVariable-1474536640544",
@@ -893,7 +907,11 @@
       "package" : "com.student_usecase.school_db.Results"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Results"
+    "package" : "com.student_usecase.school_db.Results",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "StVar_MarksSecured" : {
     "_id" : "wm-StVar_MarksSecured-wm.Variable-1474891131337",
@@ -977,7 +995,8 @@
     },
     "type" : "com.student_usecase.studentportal_db.Results",
     "isList" : false,
-    "saveInPhonegap" : false
+    "saveInPhonegap" : false,
+    "twoWayBinding" : false
   },
   "SV_StudentAcademicResults" : {
     "_id" : "wm-SV_StudentAcademicResults-wm.ServiceVariable-1474808037450",

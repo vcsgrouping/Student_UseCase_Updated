@@ -16,7 +16,7 @@
     "saveInPhonegap" : false,
     "maxResults" : 20,
     "designMaxResults" : 10,
-    "onSuccess" : "Variables.School_DB_SubjectDetailsData.listRecords();Variables.Notify_Delete.invoke()",
+    "onSuccess" : "Variables.School_DB_SubjectDetailsData.listRecords();Actions.Notify_Delete.invoke()",
     "inFlightBehavior" : "executeLast",
     "startUpdate" : false,
     "autoUpdate" : false,
@@ -83,7 +83,7 @@
     "maxResults" : 20,
     "designMaxResults" : 10,
     "onSuccess" : "Variables.School_DB_SubjectDetailsData.listRecords()",
-    "onError" : "LV_InsertSubjectDetailsonError($event, $scope)",
+    "onError" : "LV_InsertSubjectDetailsonError(variable, data, options)",
     "inFlightBehavior" : "executeLast",
     "startUpdate" : false,
     "autoUpdate" : false,
@@ -236,6 +236,10 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.SubjectDetails"
+    "package" : "com.student_usecase.school_db.SubjectDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

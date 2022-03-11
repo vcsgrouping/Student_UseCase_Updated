@@ -187,6 +187,10 @@
       "package" : "com.student_usecase.school_db.Academics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

@@ -84,6 +84,10 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.GradeDetails"
+    "package" : "com.student_usecase.school_db.GradeDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

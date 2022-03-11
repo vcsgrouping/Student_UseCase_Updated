@@ -176,7 +176,11 @@
       "package" : "com.student_usecase.school_db.AcademicSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicSubjects"
+    "package" : "com.student_usecase.school_db.AcademicSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "liveVariable1" : {
     "_id" : "wm-liveVariable1-wm.LiveVariable-1476680926392",
@@ -339,7 +343,11 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBAcademicTestSubjectsData" : {
     "_id" : "wm-School_DBAcademicTestSubjectsData-wm.LiveVariable-1476704082915",
@@ -503,7 +511,11 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBStudentDetailsData" : {
     "_id" : "wm-School_DBStudentDetailsData-wm.LiveVariable-1476447479965",
@@ -654,7 +666,11 @@
     "tableType" : "TABLE",
     "properties" : [ ],
     "relatedTables" : [ ],
-    "package" : "com.student_usecase.school_db.StudentDetails"
+    "package" : "com.student_usecase.school_db.StudentDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBTestConductedData" : {
     "_id" : "wm-School_DBTestConductedData-wm.LiveVariable-1476680876546",
@@ -782,6 +798,10 @@
       "package" : "com.student_usecase.school_db.TestConducted"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.TestConducted"
+    "package" : "com.student_usecase.school_db.TestConducted",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

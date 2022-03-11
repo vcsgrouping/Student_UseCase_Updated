@@ -71,18 +71,18 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicYear"
+    "package" : "com.student_usecase.school_db.AcademicYear",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "LV_StandardsByAcademicYear" : {
     "_id" : "wm-LV_Academics-wm.LiveVariable-1477912711180",
     "name" : "LV_StandardsByAcademicYear",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_AcademicYear.datavalue",
-      "type" : "string"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "Academics",
@@ -266,22 +266,24 @@
       "package" : "com.student_usecase.school_db.Academics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_AcademicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      } ]
+    }
   },
   "LV_TestDetails" : {
     "_id" : "wm-LV_TestDetails-wm.LiveVariable-1477997123732",
     "name" : "LV_TestDetails",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_AcademicYear.datavalue",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : "bind:Widgets.select_Standard.datavalue",
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "AcademicTestSubjects",
@@ -437,7 +439,23 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_AcademicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : "bind:Widgets.select_Standard.datavalue",
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   },
   "School_DBExecuteSV_Top3StudentsFromAllStandards" : {
     "_id" : "wm-School_DBExecuteSV_Top3StudentsFromAllStandards-wm.ServiceVariable-1477997064063",
@@ -476,15 +494,7 @@
     "name" : "School_DBStudentResultsData",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_AcademicYear.datavalue",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : "bind:Widgets.select_Standard.datavalue",
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "Results",
@@ -853,7 +863,23 @@
       "package" : "com.student_usecase.school_db.Results"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Results"
+    "package" : "com.student_usecase.school_db.Results",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_AcademicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : "bind:Widgets.select_Standard.datavalue",
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   },
   "SV_AnalysisPerGrade" : {
     "_id" : "wm-SV_AnalysisPerGrade-wm.ServiceVariable-1477982032474",

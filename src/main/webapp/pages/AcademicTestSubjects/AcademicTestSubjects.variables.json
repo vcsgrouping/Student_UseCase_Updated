@@ -161,22 +161,18 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBAcademicTestSubjectsData" : {
     "_id" : "wm-School_DB_AcademicTestSubjectsData-wm.LiveVariable-1475415310131",
     "name" : "School_DBAcademicTestSubjectsData",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:pageParams.academicYear",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : "bind:pageParams.standardID",
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "AcademicTestSubjects",
@@ -333,6 +329,22 @@
       "package" : "com.student_usecase.school_db.AcademicTestSubjects"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicTestSubjects"
+    "package" : "com.student_usecase.school_db.AcademicTestSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:pageParams.academicYear",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : "bind:pageParams.standardID",
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   }
 }

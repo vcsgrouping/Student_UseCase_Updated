@@ -12,7 +12,7 @@
     "saveInPhonegap" : false,
     "maxResults" : 100,
     "designMaxResults" : 10,
-    "onSuccess" : "Widgets.dialog1.close();School_DBStudentDetailsDataonSuccess($event, $scope)",
+    "onSuccess" : "Widgets.dialog1.close();School_DBStudentDetailsDataonSuccess(variable, data, options)",
     "inFlightBehavior" : "executeLast",
     "startUpdate" : false,
     "autoUpdate" : true,
@@ -228,7 +228,11 @@
       "package" : "com.student_usecase.school_db.StudentDetails"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.StudentDetails"
+    "package" : "com.student_usecase.school_db.StudentDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "StVar_StudentData" : {
     "_id" : "wm-StVar_-wm.Variable-1475822142623",
@@ -319,6 +323,7 @@
     } ],
     "type" : "com.student_usecase.school_db.StudentDetails",
     "isList" : true,
-    "saveInPhonegap" : false
+    "saveInPhonegap" : false,
+    "twoWayBinding" : false
   }
 }

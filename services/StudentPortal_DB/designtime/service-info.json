@@ -1,0 +1,6 @@
+{
+  "id" : "StudentPortal_DB",
+  "type" : "DataService",
+  "packageNames" : [ "com.student_usecase.studentportal_db" ],
+  "title" : "StudentPortal_DB"
+}

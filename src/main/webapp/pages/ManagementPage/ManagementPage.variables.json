@@ -188,6 +188,10 @@
       "watchOn" : "School_DBStandardDetailsData",
       "package" : "com.student_usecase.school_db.Academics"
     } ],
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

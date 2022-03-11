@@ -1,0 +1,65 @@
+{
+  "enforceSecurity" : true,
+  "loginConfig" : {
+    "type" : "PAGE",
+    "pageName" : "Login",
+    "sessionTimeout" : {
+      "type" : "DIALOG",
+      "pageName" : null,
+      "timeoutValue" : 30
+    },
+    "cookieMaxAge" : -1
+  },
+  "rememberMeConfig" : {
+    "enabled" : true,
+    "tokenValiditySeconds" : 1296000
+  },
+  "tokenAuthConfig" : {
+    "enabled" : true,
+    "parameter" : "WM_AUTH_TOKEN",
+    "tokenValiditySeconds" : 1800
+  },
+  "csrfConfig" : {
+    "enforceCsrfSecurity" : false,
+    "headerName" : "X-WM-XSRF-TOKEN"
+  },
+  "authProviders" : {
+    "DATABASE" : {
+      "modelName" : "School_DB",
+      "entityName" : "UserLogin",
+      "tableName" : "USER_LOGIN",
+      "unamePropertyName" : "userName",
+      "unameColumnName" : "USER_NAME",
+      "uidPropertyName" : "userId",
+      "uidColumnName" : "USER_ID",
+      "pwPropertyName" : "password",
+      "pwColumnName" : "PASSWORD",
+      "rolePropertyName" : "role",
+      "roleColumnName" : "ROLE",
+      "useRolesQuery" : false,
+      "rolesByUsernameQuery" : "",
+      "tenantIdField" : null,
+      "defTenantId" : 0,
+      "tenantIdPropertyName" : null,
+      "queryType" : "HQL",
+      "enabled" : true,
+      "type" : "DATABASE"
+    },
+    "DEMO" : {
+      "users" : [ {
+        "userid" : "management",
+        "password" : "management",
+        "roles" : [ "management" ]
+      }, {
+        "userid" : "student",
+        "password" : "student",
+        "roles" : [ "student" ]
+      } ],
+      "enabled" : false,
+      "type" : "DEMO"
+    }
+  },
+  "sessionPersistenceConfig" : {
+    "enabledType" : "IN_MEMORY"
+  }
+}

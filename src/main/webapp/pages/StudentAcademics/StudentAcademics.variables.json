@@ -4,15 +4,7 @@
     "name" : "LV_GetDataByAcademicStandard",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_academicYear.datavalue",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : "bind:Widgets.select_standard.datavalue",
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "Academics",
@@ -196,18 +188,30 @@
       "package" : "com.student_usecase.school_db.Academics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_academicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : "bind:Widgets.select_standard.datavalue",
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   },
   "LV_SelectAcademicStandard" : {
     "_id" : "wm-LV_SelectAcademicStandard-wm.LiveVariable-1476613887160",
     "name" : "LV_SelectAcademicStandard",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_academicYear.datavalue",
-      "type" : "string"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "Academics",
@@ -391,7 +395,17 @@
       "package" : "com.student_usecase.school_db.Academics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_academicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      } ]
+    }
   },
   "LV_SelectAcademicYear" : {
     "_id" : "wm-LV_SelectAcademicYear-wm.LiveVariable-1476613679417",
@@ -465,22 +479,18 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.AcademicYear"
+    "package" : "com.student_usecase.school_db.AcademicYear",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "StudentAcademicsData" : {
     "_id" : "wm-StudentAcademicsData-wm.LiveVariable-1475413995819",
     "name" : "StudentAcademicsData",
     "owner" : "Page",
     "category" : "wm.LiveVariable",
-    "dataBinding" : [ {
-      "target" : "academicYear",
-      "value" : "bind:Widgets.select_academicYear.datavalue",
-      "type" : "string"
-    }, {
-      "target" : "standardId",
-      "value" : "bind:Widgets.select_standard.datavalue",
-      "type" : "number"
-    } ],
+    "dataBinding" : [ ],
     "operation" : "read",
     "dataSet" : [ ],
     "type" : "StudentAcademics",
@@ -773,6 +783,22 @@
       "package" : "com.student_usecase.school_db.StudentAcademics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.StudentAcademics"
+    "package" : "com.student_usecase.school_db.StudentAcademics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ {
+        "target" : "academicYear",
+        "value" : "bind:Widgets.select_academicYear.datavalue",
+        "type" : "string",
+        "matchMode" : "startignorecase",
+        "required" : false
+      }, {
+        "target" : "standardId",
+        "value" : "bind:Widgets.select_standard.datavalue",
+        "type" : "number",
+        "matchMode" : "exact",
+        "required" : false
+      } ]
+    }
   }
 }

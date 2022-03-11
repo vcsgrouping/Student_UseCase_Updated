@@ -1,22 +1,20 @@
-<wm-partial data-ng-controller="TestConductedPartialPageController" name="partial1"> 
-    <wm-view class="dialog-view" name="view1"> 
-        <wm-dialog dialogtype="design-dialog" modal="true" title="View Results" iconclass="wi wi-edit" name="dialog1"> 
-            <wm-dialogactions name="dialogactions1"> 
-                <wm-button class="btn-secondary" caption="Cancel" on-click="closeDialog()" name="button1"></wm-button> 
-                <wm-button class="btn-primary" caption="Ok" name="button2"></wm-button> 
-            </wm-dialogactions> 
-            <wm-table title="" dataset="bind:Variables.School_DBResultsData.dataSet" navigation="Pager" name="grid_ViewResults"> 
-                <wm-table-column binding="studentDetails.studentName" caption="Student Name" type="string" generator="assigned" readonly="true" edit-widget-type="text" show="true" related-entity-name="StudentDetails"></wm-table-column> 
-                <wm-table-column binding="customField" caption="Subject Name" type="custom" readonly="true" col-class="text-uppercase" edit-widget-type="text" searchable="false" show="true">
-                     {{rowData.testConducted.academicTestSubjects.academicSubjects.subjectDetails.subjectName}} 
-                </wm-table-column> 
-                <wm-table-column binding="marksSecured" caption="Marks Secured" type="short" generator="assigned" readonly="true" edit-widget-type="number" show="true"></wm-table-column> 
-                <wm-table-column binding="customField1" caption="Grade" type="custom" readonly="true" edit-widget-type="text" searchable="false" show="true">
-                     {{rowData.gradeDetails.grade}} 
-                </wm-table-column> 
-            </wm-table> 
-        </wm-dialog> 
-    </wm-view> 
+<wm-partial name="partial1"> 
+    <wm-dialog dialogtype="design-dialog" modal="true" title="View Results" iconclass="wi wi-edit" name="dialog1"> 
+        <wm-dialogactions name="dialogactions1"> 
+            <wm-button class="btn-secondary" caption="Cancel" on-click="Widgets.dialog1.close()" name="button1"></wm-button> 
+            <wm-button class="btn-primary" caption="Ok" name="button2"></wm-button> 
+        </wm-dialogactions> 
+        <wm-table title="" dataset="bind:Variables.School_DBResultsData.dataSet" navigation="Pager" name="grid_ViewResults" gridclass="table-bordered table-striped table-hover"> 
+            <wm-table-column binding="studentDetails.studentName" caption="Student Name" type="string" generator="assigned" readonly="true" edit-widget-type="text" show="true" related-entity-name="StudentDetails"></wm-table-column> 
+            <wm-table-column binding="customField" caption="Subject Name" type="custom" readonly="true" col-class="text-uppercase" edit-widget-type="text" searchable="false" show="true">
+                 {{row?.testConducted?.academicTestSubjects?.academicSubjects?.subjectDetails?.subjectName}} 
+            </wm-table-column> 
+            <wm-table-column binding="marksSecured" caption="Marks Secured" type="short" generator="assigned" readonly="true" edit-widget-type="number" show="true"></wm-table-column> 
+            <wm-table-column binding="customField1" caption="Grade" type="custom" readonly="true" edit-widget-type="text" searchable="false" show="true">
+                 {{row?.gradeDetails?.grade}} 
+            </wm-table-column> 
+        </wm-table> 
+    </wm-dialog> 
     <wm-layoutgrid name="layoutgrid1"> 
         <wm-gridrow name="gridrow1"> 
             <wm-gridcolumn columnwidth="6" name="gridcolumn1"> 
@@ -48,16 +46,16 @@
             <wm-gridcolumn columnwidth="6" name="gridcolumn4"></wm-gridcolumn> 
         </wm-gridrow> 
     </wm-layoutgrid> 
-    <wm-table title="TEST CONDUCTED" dataset="bind:Variables.School_DBTestConductedData.dataSet" navigation="Classic" name="grid_TestConducted" nodatamessage="Select Academic Year and Standards to View results"> 
+    <wm-table title="TEST CONDUCTED" dataset="bind:Variables.School_DBTestConductedData.dataSet" navigation="Classic" name="grid_TestConducted" nodatamessage="Select Academic Year and Standards to View results" gridclass="table-bordered table-striped table-hover"> 
         <wm-table-column binding="academicTestSubjects.academicYear" caption="Academic Year" type="string" primary-key="true" generator="assigned" readonly="true" edit-widget-type="text" show="true" related-entity-name="AcademicTestSubjects"></wm-table-column> 
         <wm-table-column binding="customField" caption="Standard Name" type="custom" readonly="true" edit-widget-type="text" searchable="false" show="true">
-             {{rowData.academicTestSubjects.academicSubjects.academics.standardDetails.standardName}} 
+             {{row?.academicTestSubjects?.academicSubjects?.academics?.standardDetails?.standardName}} 
         </wm-table-column> 
         <wm-table-column binding="customField1" caption="Subject Name" type="custom" readonly="true" col-class="text-uppercase" edit-widget-type="text" searchable="false" show="true">
-             {{rowData.academicTestSubjects.academicSubjects.subjectDetails.subjectName}} 
+             {{row?.academicTestSubjects?.academicSubjects?.subjectDetails?.subjectName}} 
         </wm-table-column> 
         <wm-table-column binding="customField2" caption="Test Name" type="custom" readonly="true" edit-widget-type="text" searchable="false" show="true">
-             {{rowData.academicTestSubjects.testDetails.testName}} 
+             {{row?.academicTestSubjects?.testDetails?.testName}} 
         </wm-table-column> 
         <wm-table-column binding="testConductedOn" caption="Test Conducted On" type="date" generator="assigned" readonly="true" edit-widget-type="date" show="true"></wm-table-column> 
         <wm-table-column binding="testConductedId" caption="Test Conducted Id" type="integer" generator="assigned" readonly="true" edit-widget-type="number" show="false"></wm-table-column> 
@@ -65,24 +63,22 @@
         <wm-table-column binding="academicTestSubjects.testId" caption="Test Id" type="integer" generator="assigned" readonly="true" edit-widget-type="number" show="false" related-entity-name="AcademicTestSubjects"></wm-table-column> 
         <wm-table-column binding="rowOperations" caption="Actions" type="custom" readonly="true" edit-widget-type="text" sortable="false" searchable="false" show="true"></wm-table-column> 
         <wm-table-row-action key="customRow" display-name="" show="true" class="btn-transparent" iconclass="wi wi-remove-red-eye fa-lg" title="ViewTestResults" action="Widgets.dialog1.open()" disabled="false"></wm-table-row-action> 
-        <wm-table-row-action key="customRow1" display-name="" show="bind:row.index === dataset.data.length" class="btn-transparent" iconclass="wi wi-mode-edit fa-lg" title="Edit Results" action="Variables.Service_InsertStudentResults.invoke()" disabled="false"></wm-table-row-action> 
+        <wm-table-row-action key="customRow1" display-name="" show="bind:row.$index === dataset.data.length" class="btn-transparent" iconclass="wi wi-mode-edit fa-lg" title="Edit Results" action="Variables.Service_InsertStudentResults.invoke()" disabled="false"></wm-table-row-action> 
     </wm-table> 
-    <wm-view class="dialog-view" name="view2"> 
-        <wm-dialog dialogtype="design-dialog" modal="true" title="Update Results" iconclass="wi wi-edit" name="dialog2"> 
-            <wm-dialogactions name="dialogactions2" show="false"></wm-dialogactions> 
-            <wm-table editmode="quickedit" title="" dataset="bind:Variables.School_DBResultsData.dataSet" navigation="Pager" name="grid_UpdateResults" on-rowclick="grid_UpdateResultsRowclick($event, $rowData)"> 
-                <wm-table-column binding="studentDetails.studentName" caption="Student Name" type="string" generator="assigned" readonly="true" edit-widget-type="select" dataset="bind:Variables.LV_StudentDetails.dataSet" datafield="All Fields" displayfield="studentDetails.studentName" show="true" related-entity-name="StudentDetails"></wm-table-column> 
-                <wm-table-column binding="presence" caption="Presence" type="boolean" widget-type="checkbox" generator="assigned" edit-widget-type="checkbox" show="true" checkedvalue="true" uncheckedvalue="false" readonly="false" on-change="presenceOnChange($event, $scope, rowData)" on-blur="presenceOnBlur($event, $scope, rowData)"> 
-                    <input type="checkbox" ng-model="row['presence']" ng-disabled="{{colDef.readonly || !isGridEditMode}}" class="" data-ng-class=""> 
-                </wm-table-column> 
-                <wm-table-column binding="marksSecured" caption="Marks Secured" type="short" generator="assigned" edit-widget-type="number" show="true" readonly="false" on-change="marksSecuredOnChange($event, $scope, rowData)"></wm-table-column> 
-                <wm-table-column binding="gradeDetails.grade" caption="Details Grade" type="string" generator="assigned" edit-widget-type="text" show="true" related-entity-name="GradeDetails" readonly="false" disabled="true"></wm-table-column> 
-                <wm-table-column binding="testConducted.testConductedId" caption="Conducted Id" type="integer" generator="assigned" readonly="true" is-related-pk="true" edit-widget-type="select" dataset="bind:Widgets.grid_TestConducted.selecteditem" datafield="All Fields" displayfield="testConductedId" defaultvalue="bind:Widgets.grid_TestConducted.selecteditem.testConductedId" show="false" related-entity-name="TestConducted"></wm-table-column> 
-                <wm-table-column binding="testConducted.testConductedOn" caption="Conducted On" type="date" generator="assigned" edit-widget-type="date" show="false" related-entity-name="TestConducted" readonly="false"></wm-table-column> 
-                <wm-table-column binding="testConducted.academicYear" caption="Academic Year" type="string" generator="assigned" is-related-pk="true" edit-widget-type="text" show="false" related-entity-name="TestConducted" readonly="false"></wm-table-column> 
-                <wm-table-column binding="gradeDetails.gradeId" caption="Grade Id" type="integer" generator="identity" is-related-pk="true" edit-widget-type="number" show="false" related-entity-name="GradeDetails" readonly="false"></wm-table-column> 
-                <wm-table-action key="customButton" display-name="Close" show="true" class="btn-default" iconclass="wi wi-clear" title="Close" action="Widgets.dialog2.close()" shortcutkey="" disabled="false" icon="wi wi-clear"></wm-table-action> 
-            </wm-table> 
-        </wm-dialog> 
-    </wm-view> 
+    <wm-dialog dialogtype="design-dialog" modal="true" title="Update Results" iconclass="wi wi-edit" name="dialog2"> 
+        <wm-dialogactions name="dialogactions2" show="false"></wm-dialogactions> 
+        <wm-table editmode="quickedit" title="" dataset="bind:Variables.School_DBResultsData.dataSet" navigation="Pager" name="grid_UpdateResults" on-rowclick="dialog2_grid_UpdateResultsRowclick($event, row)" gridclass="table-bordered table-striped table-hover"> 
+            <wm-table-column binding="studentDetails.studentName" caption="Student Name" type="string" generator="assigned" readonly="true" edit-widget-type="select" dataset="bind:Variables.LV_StudentDetails.dataSet" datafield="All Fields" displayfield="studentDetails.studentName" show="true" related-entity-name="StudentDetails"></wm-table-column> 
+            <wm-table-column binding="presence" caption="Presence" type="boolean" widget-type="checkbox" generator="assigned" edit-widget-type="checkbox" show="true" checkedvalue="true" uncheckedvalue="false" readonly="false" on-change="App.activePage.presenceOnChange($event, widget, row)" on-blur="App.activePage.presenceOnBlur($event, widget, row)"> 
+                <input type="checkbox" ng-model="row['presence']" [attr.ng-disabled]="colDef?.readonly || !isGridEditMode" class="" data-ng-class=""> 
+            </wm-table-column> 
+            <wm-table-column binding="marksSecured" caption="Marks Secured" type="short" generator="assigned" edit-widget-type="number" show="true" readonly="false" on-change="grid_UpdateResults_marksSecuredOnChange($event, widget, row)"></wm-table-column> 
+            <wm-table-column binding="gradeDetails.grade" caption="Details Grade" type="string" generator="assigned" edit-widget-type="text" show="true" related-entity-name="GradeDetails" readonly="false" disabled="true"></wm-table-column> 
+            <wm-table-column binding="testConducted.testConductedId" caption="Conducted Id" type="integer" generator="assigned" readonly="true" is-related-pk="true" edit-widget-type="select" dataset="bind:Widgets.grid_TestConducted.selecteditem" datafield="All Fields" displayfield="testConductedId" defaultvalue="bind:Widgets.grid_TestConducted.selecteditem.testConductedId" show="false" related-entity-name="TestConducted"></wm-table-column> 
+            <wm-table-column binding="testConducted.testConductedOn" caption="Conducted On" type="date" generator="assigned" edit-widget-type="date" show="false" related-entity-name="TestConducted" readonly="false"></wm-table-column> 
+            <wm-table-column binding="testConducted.academicYear" caption="Academic Year" type="string" generator="assigned" is-related-pk="true" edit-widget-type="text" show="false" related-entity-name="TestConducted" readonly="false"></wm-table-column> 
+            <wm-table-column binding="gradeDetails.gradeId" caption="Grade Id" type="integer" generator="identity" is-related-pk="true" edit-widget-type="number" show="false" related-entity-name="GradeDetails" readonly="false"></wm-table-column> 
+            <wm-table-action key="customButton" display-name="Close" show="true" class="btn-default" iconclass="wi wi-clear" title="Close" action="Widgets.dialog2.close()" shortcutkey="" disabled="false" icon="wi wi-clear"></wm-table-action> 
+        </wm-table> 
+    </wm-dialog> 
 </wm-partial>

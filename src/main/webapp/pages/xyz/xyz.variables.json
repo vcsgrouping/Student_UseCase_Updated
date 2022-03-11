@@ -148,6 +148,10 @@
     "tableType" : "TABLE",
     "properties" : [ ],
     "relatedTables" : [ ],
-    "package" : "com.student_usecase.school_db.StudentDetails"
+    "package" : "com.student_usecase.school_db.StudentDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

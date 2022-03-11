@@ -188,7 +188,11 @@
       "package" : "com.student_usecase.school_db.Academics"
     } ],
     "filterFields" : { },
-    "package" : "com.student_usecase.school_db.Academics"
+    "package" : "com.student_usecase.school_db.Academics",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "School_DBAcademicSubjectsData" : {
     "_id" : "wm-School_DBAcademicSubjectsData-wm.LiveVariable-1478597744357",
@@ -367,6 +371,10 @@
       "watchOn" : "School_DBSubjectDetailsData",
       "package" : "com.student_usecase.school_db.AcademicSubjects"
     } ],
-    "package" : "com.student_usecase.school_db.AcademicSubjects"
+    "package" : "com.student_usecase.school_db.AcademicSubjects",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   }
 }

@@ -56,7 +56,11 @@
     "properties" : [ ],
     "relatedTables" : [ ],
     "filterFields" : { },
-    "package" : "com.student_usecase.studentportal_db.TestDetails"
+    "package" : "com.student_usecase.studentportal_db.TestDetails",
+    "filterExpressions" : {
+      "condition" : "AND",
+      "rules" : [ ]
+    }
   },
   "SV_TestResults" : {
     "_id" : "wm-SV_TestResults-wm.ServiceVariable-1474880687329",
